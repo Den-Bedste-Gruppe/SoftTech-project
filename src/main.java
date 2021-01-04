@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import javafx.scene.input.*;
 
 public class main extends Application {
-
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -21,7 +20,7 @@ public class main extends Application {
 		window = primaryStage;
 		primaryStage.setTitle("Close?");
 		this.button.setText("Close!");
-		this.button.setOnAction(this::handleClick);
+		this.button.setOnAction(e -> window.close());
 		StackPane root = new StackPane();
 		root.getChildren().add(this.button);
 		Scene scene = new Scene(root, 500, 350);
@@ -29,9 +28,4 @@ public class main extends Application {
 		primaryStage.show();
 		
 	}
-
-	private void handleClick(ActionEvent event) {
-		window.close();
-	}
-	
 }
