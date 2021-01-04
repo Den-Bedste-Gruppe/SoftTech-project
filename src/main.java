@@ -19,8 +19,13 @@ public class main extends Application {
 	public void start(Stage primaryStage) {
 		window = primaryStage;
 		primaryStage.setTitle("Close?");
-		this.button.setText("Close!");
-		this.button.setOnAction(e -> window.close());
+		
+		this.button.setText("->   Close   <-");
+		this.button.setOnAction(e -> {
+			System.out.println("Closed!");
+			window.close();
+		});
+		
 		StackPane root = new StackPane();
 		root.getChildren().add(this.button);
 		Scene scene = new Scene(root, 500, 350);
