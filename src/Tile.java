@@ -12,8 +12,12 @@ public class Tile {
 		return marker;
 	}
 	
-	private void incMarker() {
+	public void incMarker() {
 		marker++;
+	}
+	
+	public void setShown() {
+		shown = true;
 	}
 	
 	
