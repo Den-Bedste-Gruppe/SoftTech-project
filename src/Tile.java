@@ -20,5 +20,12 @@ public class Tile {
 		shown = true;
 	}
 	
+	public int getAdjBombs() {
+		return 0;
+	}
+	
+	public void incAdjBombs() {
+		return;
+	}
 	
 }
