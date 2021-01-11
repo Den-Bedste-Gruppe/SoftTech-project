@@ -27,7 +27,6 @@ public class MineSweeperGame {
 		return rounds;
 	}
 	
-	
 	public int getHeight() {
 		return height;
 	}
@@ -43,7 +42,8 @@ public class MineSweeperGame {
 	public int getNumOfBombs() {
 		return numOfBombs;
 	}
-	 public boolean isDone() {
+
+	public boolean isDone() {
 		return done;
 	}
 	 
@@ -68,12 +68,13 @@ public class MineSweeperGame {
 	
 	public void placeBombs(int startX, int startY) {
 		int bombsPlaced = 0;
-		int x,y;
+		int x, y;
 		Tile currTile;
 		while(bombsPlaced < numOfBombs) {
 			x = rand.nextInt(width);
 			y = rand.nextInt(height);
 			currTile = board[y][x];
+			// Should it not be (x == startX && y == startY)
 			if(!(x == startX || y == startY) && (currTile instanceof SafeTile)) {
 				board[y][x] = new Tile(); 
 				bombsPlaced++;
