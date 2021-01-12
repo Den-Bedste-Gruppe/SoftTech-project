@@ -21,9 +21,9 @@ public class main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		window = primaryStage;
-		primaryStage.setTitle("Close?");
-		Parent root = FXMLLoader.load(main.class.getResource("grid.fxml"));
+//		window = primaryStage;
+//		primaryStage.setTitle("Close?");
+		primaryStage = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 		
 //		this.button.setText("->   Close   <-");
 //		this.button.setOnAction(e -> {
@@ -33,8 +33,8 @@ public class main extends Application {
 //		
 //		StackPane root = new StackPane();
 //		root.getChildren().add(this.button);
-		Scene scene = new Scene(root, 500, 500);
-		primaryStage.setScene(scene);
+//		Scene scene = new Scene(root, 500, 500);
+//		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 	}
