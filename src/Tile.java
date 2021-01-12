@@ -1,8 +1,17 @@
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class Tile {
 	private int marker;
 	private boolean shown;
+	private int x,y;
+	private boolean hasBomb;
+    private boolean isOpen = false;
+    
 	
+    
+    
 	
 	public boolean isShown() {
 		return shown;
