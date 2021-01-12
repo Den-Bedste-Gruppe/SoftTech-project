@@ -1,6 +1,8 @@
 import java.util.Random;
 
+import javafx.scene.Parent;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.Pane;
 
 
 public class MineSweeperGame {
@@ -8,6 +10,8 @@ public class MineSweeperGame {
 	private Tile[][] board;
 	private int height, width, flagCounter, numOfBombs, rounds;
 	private Random rand = new Random();
+	
+	
 	
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
@@ -22,6 +26,7 @@ public class MineSweeperGame {
 			}
 		}
 	}
+	
 	
 	public int getRounds() {
 		return rounds;
@@ -100,4 +105,6 @@ public class MineSweeperGame {
 		}
 		return s;
 	}
+	
+	
 }
