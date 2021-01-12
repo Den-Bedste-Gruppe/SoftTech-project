@@ -80,7 +80,7 @@ public class MineSweeperGame {
 			y = rand.nextInt(height);
 			currTile = board[y][x];
 			// Should it not be (x == startX && y == startY)
-			if(!(x == startX || y == startY) && (currTile instanceof SafeTile)) {
+			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) {
 				board[y][x] = new Tile(); 
 				bombsPlaced++;
 				incNeighbours(x, y);
