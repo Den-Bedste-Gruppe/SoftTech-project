@@ -19,7 +19,7 @@ public class Tile {
 	}
 	
 	public void incMarker() {
-		marker=(marker+1)%3;
+		marker=(marker + 1) % 3;
 	}
 	
 	public void setShown() {

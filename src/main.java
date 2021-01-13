@@ -3,9 +3,11 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.*;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
@@ -21,21 +23,13 @@ public class main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-//		window = primaryStage;
-//		primaryStage.setTitle("Close?");
+	
+		MineSweeperController.setGame(new MineSweeperGame(4,4, 10));
 		primaryStage = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 		
-//		this.button.setText("->   Close   <-");
-//		this.button.setOnAction(e -> {
-//			System.out.println("Closed!");
-//			window.close();
-//		});
-//		
-//		StackPane root = new StackPane();
-//		root.getChildren().add(this.button);
-//		Scene scene = new Scene(root, 500, 500);
-//		primaryStage.setScene(scene);
+
 		primaryStage.show();
+		
 		
 	}
 }

@@ -7,7 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
 
@@ -22,7 +26,7 @@ public class MineSweeperController {
 	@FXML
 	private URL location;
 
-	private MineSweeperGame game;
+	private static MineSweeperGame game;
 	
 	private int[] coords = new int[2];
 	
@@ -30,19 +34,18 @@ public class MineSweeperController {
 	
 	private Tile currTile;
 
-	
-	public MineSweeperController(MineSweeperGame game) {
-		this.game = game;
+	public static void setGame(MineSweeperGame mgame) {
+		game = mgame;
 	}
 
 	public void initialize() {
-		for (int i = 1; i <= game.getHeight(); i++) {
-			for (int j = 1; j <= game.getWidth(); j++) {
-				Button btn = new Button("");
+		for (int i = 0; i < game.getHeight(); i++) {
+			for (int j = 0; j < game.getWidth(); j++) {
+				Button btn = new Button(""+game.getTile(i, j).getAdjBombs());
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
-				btn.setId("" + i + "." + j);
+				btn.setId(i + " . " + j);
 				btn.setOnMouseClicked(e -> TileClicked(e));
 			}
 		}
@@ -51,9 +54,14 @@ public class MineSweeperController {
 
 	public void TileClicked(MouseEvent e) {
 		//getting cordinates from button clicked, and tile model from that location
-		String[] coordString = ((Control)e.getSource()).getId().split(".");
+		String[] coordString = new String[2];
+		coordString = ((Control)e.getSource()).getId().split(" . ");
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
+		if(game.getRounds()==0) {
+			game.placeBombs(coords[0], coords[1]);
+			return;
+		}
 		currTile = game.getTile(coords[0], coords[1]);
 		
 
@@ -85,10 +93,13 @@ public class MineSweeperController {
 		switch(tileMarker) {
 		case 0:
 			unmarkedTile();
+			return;
 		case 1:
 			flaggedTile();
+			return;
 		case 2:
 			questionTile();
+			return;
 		}
 		
 	}
@@ -124,7 +135,8 @@ public class MineSweeperController {
 					if(tempX >= 0 && tempX < game.getWidth()) {
 						tempTile = game.getTile(tempX, tempY);
 						if(tempTile instanceof SafeTile) {
-							if(tempTile.getAdjBombs() == 0) {
+							//den autorevealer også felter med spørgsmåltegn hvis de er clean
+							if(tempTile.getAdjBombs() == 0 && !tempTile.isShown() && !(tempTile.getMarker()==1)) {
 								zeroSolver(tempX, tempY);
 							}
 						}

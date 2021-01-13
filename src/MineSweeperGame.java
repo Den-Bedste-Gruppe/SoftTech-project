@@ -92,8 +92,8 @@ public class MineSweeperGame {
 		
 	}
 	
-	public void incFlagCounter(int marker) {
-		flagCounter += marker;
+	public void incFlagCounter(int upOrNot) {
+		flagCounter += upOrNot;
 	}
 	
 	//for testing
