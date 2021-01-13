@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.scene.input.*;
 
 public class MineSweeperController {
 
@@ -25,6 +26,8 @@ public class MineSweeperController {
 	
 	private int[] coords = new int[2];
 	
+	private int tileMarker;
+	
 	private Tile currTile;
 
 	
@@ -40,23 +43,45 @@ public class MineSweeperController {
 				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
 				btn.setId("" + i + "." + j);
-				btn.setOnAction(e -> TileClicked(e));
+				btn.setOnMouseClicked(e -> TileClicked(e));
 			}
 		}
 	}
 	
 
-	public void TileClicked(ActionEvent e) {
-		System.out.println(((Control)e.getSource()).getId());
+	public void TileClicked(MouseEvent e) {
+		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = ((Control)e.getSource()).getId().split(".");
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
+		currTile = game.getTile(coords[0], coords[1]);
 		
+		//for changing markers
+		if(e.getButton() == MouseButton.SECONDARY) {
+			currTile.incMarker();
+		}
 		
+		//Different actions depending on if there is flag or questionmark
+		tileMarker = currTile.getMarker();
+		switch(tileMarker) {
+		case 0:
+			
+		}
 		
 	}
 	
 	
+	private void unmarkedTile() {
+		return;
+	}
+	
+	private void flaggedTile() {
+		return;
+	}
+	
+	private void questionTile() {
+		return;
+	}
 	
 	
 	public void close() {

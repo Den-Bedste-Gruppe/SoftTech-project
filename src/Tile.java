@@ -5,7 +5,6 @@ import javafx.scene.text.Text;
 public class Tile {
 	private int marker;
 	private boolean shown;
-	private int x,y;
 	private boolean hasBomb;
     private boolean isOpen = false;
     
@@ -22,7 +21,7 @@ public class Tile {
 	}
 	
 	public void incMarker() {
-		marker++;
+		marker=(marker+1)%3;
 	}
 	
 	public void setShown() {

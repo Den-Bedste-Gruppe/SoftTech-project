@@ -27,6 +27,9 @@ public class MineSweeperGame {
 		}
 	}
 	
+	public Tile getTile(int x, int y) {
+		return board[x][y];
+	}
 	
 	public int getRounds() {
 		return rounds;
