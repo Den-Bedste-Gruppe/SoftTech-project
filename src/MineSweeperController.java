@@ -21,14 +21,15 @@ public class MineSweeperController {
 	@FXML
 	private URL location;
 
-	private static MineSweeperGame game;
+	private MineSweeperGame game;
+	
+	private int[] coords = new int[2];
+	
+	private Tile currTile;
 
-	public MineSweeperController() {
-		game = new MineSweeperGame(10, 10, 10);
-	}
-
-	public MineSweeperController(int hight, int width, int bombs) {
-		game = new MineSweeperGame(hight, width, bombs);
+	
+	public MineSweeperController(MineSweeperGame game) {
+		this.game = game;
 	}
 
 	public void initialize() {
@@ -39,15 +40,25 @@ public class MineSweeperController {
 				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
 				btn.setId("" + i + "." + j);
-				btn.setOnAction(e -> TicClick(e));
+				btn.setOnAction(e -> TileClicked(e));
 			}
 		}
 	}
+	
 
-	public void TicClick(ActionEvent e) {
-		//System.out.println("Success");
+	public void TileClicked(ActionEvent e) {
 		System.out.println(((Control)e.getSource()).getId());
+		String[] coordString = ((Control)e.getSource()).getId().split(".");
+		coords[0] = Integer.parseInt(coordString[0]);
+		coords[1] = Integer.parseInt(coordString[1]);
+		
+		
+		
 	}
+	
+	
+	
+	
 	public void close() {
 		System.out.println("Closed!");
 		Stage stage = (Stage) board.getScene().getWindow();
