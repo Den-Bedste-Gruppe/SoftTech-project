@@ -3,10 +3,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class Tile {
-	private int marker;
+	private int marker = 0;
 	private boolean shown;
-	private boolean hasBomb;
-    private boolean isOpen = false;
     
 	
     

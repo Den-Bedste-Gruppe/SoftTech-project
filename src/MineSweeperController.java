@@ -56,24 +56,84 @@ public class MineSweeperController {
 		coords[1] = Integer.parseInt(coordString[1]);
 		currTile = game.getTile(coords[0], coords[1]);
 		
+
+		if(currTile.isShown()) {
+			return;
+			//add code for the autosolving related to flags, ie check if flags in area = num of adj bombs, then clear
+		}
+		
+		tileMarker = currTile.getMarker();
 		//for changing markers
 		if(e.getButton() == MouseButton.SECONDARY) {
+			switch(tileMarker) {
+			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
+			case 0:
+				game.incFlagCounter(1);
+				//add flag pic to stackpane
+			case 1:
+				game.incFlagCounter(-1);
+				//replace flag with questionmark
+			case 2:
+				//remove questionmark
+			}
+			
 			currTile.incMarker();
+			return;
 		}
 		
 		//Different actions depending on if there is flag or questionmark
-		tileMarker = currTile.getMarker();
 		switch(tileMarker) {
 		case 0:
-			
+			unmarkedTile();
+		case 1:
+			flaggedTile();
+		case 2:
+			questionTile();
 		}
 		
 	}
 	
 	
 	private void unmarkedTile() {
-		return;
+		if(!(currTile instanceof SafeTile)) {
+			//add some other exit option?
+			close();
+		}
+		
+		
+		
 	}
+	
+	private void revealTile(int x, int y) {
+		game.getTile(x, y).setShown();
+		
+		
+	}
+	
+	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
+	//er hoved metode som står for det meste når man klikker på et felt som ikke er vist
+	private void zeroSolver(int x, int y) {
+		Tile tempTile;
+		revealTile(x,y);
+		int tempX, tempY;
+		for(int i = -1; i <= 1; i++) {
+			tempY = y + i;
+			if(tempY >= 0 && tempY < game.getHeight()) {
+				for(int j = -1; j <= 1; j++) {
+					tempX = x + j;
+					if(tempX >= 0 && tempX < game.getWidth()) {
+						tempTile = game.getTile(tempX, tempY);
+						if(tempTile instanceof SafeTile) {
+							if(tempTile.getAdjBombs() == 0) {
+								zeroSolver(tempX, tempY);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	
 	private void flaggedTile() {
 		return;

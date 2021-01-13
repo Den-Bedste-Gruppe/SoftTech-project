@@ -92,6 +92,10 @@ public class MineSweeperGame {
 		
 	}
 	
+	public void incFlagCounter(int marker) {
+		flagCounter += marker;
+	}
+	
 	//for testing
 	public String toString() {
 		String s = "";
