@@ -31,8 +31,10 @@ public class MineSweeperController {
 	private int[] coords = new int[2];
 	
 	private int tileMarker;
-	
+
 	private Tile currTile;
+	
+	private Button button;
 
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
@@ -41,7 +43,7 @@ public class MineSweeperController {
 	public void initialize() {
 		for (int i = 0; i < game.getHeight(); i++) {
 			for (int j = 0; j < game.getWidth(); j++) {
-				Button btn = new Button(""+game.getTile(i, j).getAdjBombs());
+				Button btn = new Button("");
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
@@ -53,22 +55,29 @@ public class MineSweeperController {
 	
 
 	public void TileClicked(MouseEvent e) {
+		button = ((Button)e.getSource());
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
-		coordString = ((Control)e.getSource()).getId().split(" . ");
+		coordString = button.getId().split(" . ");
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
-		if(game.getRounds()==0) {
-			game.placeBombs(coords[0], coords[1]);
-			return;
-		}
 		currTile = game.getTile(coords[0], coords[1]);
 		
+		if(game.getRounds() == 0) {
+			game.placeBombs(coords[0], coords[1]);
+			game.incRounds();
+			revealTile();
+			return;
+		}
 
+		
+		//in case the tile is already revealed
 		if(currTile.isShown()) {
 			return;
 			//add code for the autosolving related to flags, ie check if flags in area = num of adj bombs, then clear
 		}
+		
+		game.incRounds();
 		
 		tileMarker = currTile.getMarker();
 		//for changing markers
@@ -77,12 +86,15 @@ public class MineSweeperController {
 			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
-				//add flag pic to stackpane
+				button.setText("F");
+				break;
 			case 1:
 				game.incFlagCounter(-1);
-				//replace flag with questionmark
+				button.setText("?");
+				break;
 			case 2:
-				//remove questionmark
+				button.setText("");
+				break;
 			}
 			
 			currTile.incMarker();
@@ -92,7 +104,7 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			unmarkedTile();
+			unmarkedTile(coords[0], coords[1]);
 			return;
 		case 1:
 			flaggedTile();
@@ -105,7 +117,8 @@ public class MineSweeperController {
 	}
 	
 	
-	private void unmarkedTile() {
+	private void unmarkedTile(int x, int y) {
+		revealTile();
 		if(!(currTile instanceof SafeTile)) {
 			//add some other exit option?
 			close();
@@ -115,14 +128,16 @@ public class MineSweeperController {
 		
 	}
 	
-	private void revealTile(int x, int y) {
-		game.getTile(x, y).setShown();
+	private void revealTile() {
+		currTile.setShown();
+		button.setText("" + currTile.getAdjBombs());
 		
 		
 	}
 	
 	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
 	//er hoved metode som står for det meste når man klikker på et felt som ikke er vist
+	/*
 	private void zeroSolver(int x, int y) {
 		Tile tempTile;
 		revealTile(x,y);
@@ -145,6 +160,7 @@ public class MineSweeperController {
 			}
 		}
 	}
+	*/
 	
 	
 	private void flaggedTile() {

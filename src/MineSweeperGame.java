@@ -47,6 +47,10 @@ public class MineSweeperGame {
 		return flagCounter;
 	}
 	
+	public void incRounds () {
+		rounds++;
+	}
+	
 	public int getNumOfBombs() {
 		return numOfBombs;
 	}
@@ -89,7 +93,7 @@ public class MineSweeperGame {
 				incNeighbours(x, y);
 			}
 		}
-		
+		System.out.println("Bombs placed");
 	}
 	
 	public void incFlagCounter(int upOrNot) {
