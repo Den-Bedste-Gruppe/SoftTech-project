@@ -36,7 +36,7 @@ public class MineSweeperController {
 			for (int j = 1; j <= game.getWidth(); j++) {
 				Button btn = new Button("");
 				btn.setMaxSize(50, 50);
-				btn.setMinSize(50, 50);
+				btn.setMinSize(22, 22);
 				board.add(btn, i, j);
 				btn.setId("" + i + "." + j);
 				btn.setOnAction(e -> TicClick(e));
@@ -44,6 +44,7 @@ public class MineSweeperController {
 		}
 	}
 
+	
 	public void TicClick(ActionEvent e) {
 		//System.out.println("Success");
 		System.out.println(((Control)e.getSource()).getId());
