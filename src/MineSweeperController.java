@@ -19,6 +19,9 @@ public class MineSweeperController {
 
 	@FXML
 	private GridPane board;
+	
+	@FXML
+	private Label bombLabel;
 
 	@FXML
 	private ResourceBundle resources;
@@ -98,7 +101,7 @@ public class MineSweeperController {
 				button.setText("");
 				break;
 			}
-			
+			bombLabel.setText(""+game.getFlagCounter());
 			currTile.incMarker();
 			return;
 		}

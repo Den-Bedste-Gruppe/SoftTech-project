@@ -29,7 +29,7 @@
                <right>
                   <VBox BorderPane.alignment="CENTER">
                      <children>
-                        <Label text="Label" />
+                        <Label fx:id="bombLabel" text="0" />
                      </children>
                   </VBox>
                </right>
