@@ -8,8 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,32 +35,37 @@ public class MineSweeperController {
 	private int tileMarker;
 
 	private Tile currTile;
-	
-	private Button button;
-
+	private StackPane stackPane;
+	//private Button button;
+	private Label flag ;
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
 	}
 
 	public void initialize() {
+		Label text;
 		for (int i = 0; i < game.getHeight(); i++) {
 			for (int j = 0; j < game.getWidth(); j++) {
-				Button btn = new Button("");
+				StackPane btn = new StackPane();
+				text = new Label("");
+				btn.getChildren().addAll(new Rectangle(50,50, Color.LIGHTGRAY), text);
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
 				btn.setId(i + " . " + j);
 				btn.setOnMouseClicked(e -> TileClicked(e));
+			
 			}
 		}
 	}
 	
 
 	public void TileClicked(MouseEvent e) {
-		button = ((Button)e.getSource());
+		stackPane = ((StackPane)e.getSource());
+		
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
-		coordString = button.getId().split(" . ");
+		coordString = stackPane.getId().split(" . ");
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
 		currTile = game.getTile(coords[0], coords[1]);
@@ -82,18 +89,24 @@ public class MineSweeperController {
 		tileMarker = currTile.getMarker();
 		//for changing markers
 		if(e.getButton() == MouseButton.SECONDARY) {
+			Label text = (Label) (stackPane.getChildren().get(1));
+//			stackPane.getChildren().remove(flag);
+//			stackPane.getChildren().add(flag = new Label());
 			switch(tileMarker) {
 			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
-				button.setText("F");
+				text.setText("F");
+
+				
 				break;
 			case 1:
 				game.incFlagCounter(-1);
-				button.setText("?");
+				text.setText("?");
+
 				break;
 			case 2:
-				button.setText("");
+				text.setText("");
 				break;
 			}
 			
@@ -130,7 +143,8 @@ public class MineSweeperController {
 	
 	private void revealTile() {
 		currTile.setShown();
-		button.setText("" + currTile.getAdjBombs());
+		stackPane.getChildren().add(new Label(""+currTile.getAdjBombs()));
+		//button.setText("" + currTile.getAdjBombs());
 		
 		
 	}
