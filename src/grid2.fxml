@@ -13,7 +13,7 @@
 
 <Stage height="800.0" title="MineSweeper" width="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
    <scene>
-      <Scene>
+      <Scene stylesheets="@cssFiler/test.css">
          <root>
             <BorderPane>
                <center>
@@ -25,13 +25,6 @@
                      </content>
                   </ScrollPane>
                </center>
-               <right>
-                  <VBox BorderPane.alignment="CENTER">
-                     <children>
-                        <Label text="Label" />
-                     </children>
-                  </VBox>
-               </right>
                <top>
                   <MenuBar BorderPane.alignment="CENTER">
                     <menus>
@@ -53,6 +46,13 @@
                     </menus>
                   </MenuBar>
                </top>
+               <bottom>
+                  <VBox BorderPane.alignment="CENTER">
+                     <children>
+                        <Label text="Label" />
+                     </children>
+                  </VBox>
+               </bottom>
             </BorderPane>
          </root>
       </Scene>
