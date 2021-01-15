@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-
-<Stage title="MineSweeper" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
+<Stage height="800.0" title="MineSweeper" width="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
    <scene>
       <Scene>
          <root>
@@ -20,7 +19,7 @@
                <center>
                   <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
                      <content>
-                        <GridPane fx:id="board" alignment="CENTER" hgap="2.0" vgap="2.0">
+                        <GridPane fx:id="board" alignment="CENTER" hgap="0.5" vgap="0.5">
         
       </GridPane>
                      </content>

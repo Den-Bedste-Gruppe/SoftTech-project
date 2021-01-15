@@ -27,6 +27,9 @@ public class MineSweeperGame {
 		}
 	}
 	
+	public Tile getTile(int x, int y) {
+		return board[x][y];
+	}
 	
 	public int getRounds() {
 		return rounds;
@@ -42,6 +45,10 @@ public class MineSweeperGame {
 	
 	public int getFlagCounter() {
 		return flagCounter;
+	}
+	
+	public void incRounds () {
+		rounds++;
 	}
 	
 	public int getNumOfBombs() {
@@ -86,7 +93,11 @@ public class MineSweeperGame {
 				incNeighbours(x, y);
 			}
 		}
-		
+		System.out.println("Bombs placed");
+	}
+	
+	public void incFlagCounter(int upOrNot) {
+		flagCounter += upOrNot;
 	}
 	
 	//for testing
