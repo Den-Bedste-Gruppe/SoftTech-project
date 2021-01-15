@@ -53,7 +53,8 @@ public class MineSweeperController {
 		}
 	}
 	
-
+	
+	
 	public void TileClicked(MouseEvent e) {
 		button = ((Button)e.getSource());
 		//getting cordinates from button clicked, and tile model from that location
@@ -130,6 +131,7 @@ public class MineSweeperController {
 	
 	private void revealTile() {
 		currTile.setShown();
+		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
 		button.setText("" + currTile.getAdjBombs());
 		
 		
