@@ -68,6 +68,7 @@ public class MineSweeperController {
 			game.placeBombs(coords[0], coords[1]);
 			game.incRounds();
 			revealTile();
+			System.out.println(game);
 			return;
 		}
 
@@ -122,6 +123,7 @@ public class MineSweeperController {
 		if(!(currTile instanceof SafeTile)) {
 			//add some other exit option?
 			close();
+			return;
 		}
 		revealTile();
 		if(game.isWon()) {

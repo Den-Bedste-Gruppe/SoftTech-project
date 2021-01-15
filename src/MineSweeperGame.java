@@ -91,15 +91,17 @@ public class MineSweeperGame {
 		int bombsPlaced = 0;
 		int x, y;
 		Tile currTile;
+		System.out.println(startX+"-"+startY);
 		while(bombsPlaced < numOfBombs) {
 			x = rand.nextInt(width);
 			y = rand.nextInt(height);
-			currTile = board[y][x];
+			currTile = board[x][y];
 			// Should it not be (x == startX && y == startY)
-			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) {
-				board[y][x] = new Tile(); 
+			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
+				board[x][y] = new Tile();
 				bombsPlaced++;
-				incNeighbours(x, y);
+				incNeighbours(y, x);
+
 			}
 		}
 		System.out.println("Bombs placed");
