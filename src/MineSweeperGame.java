@@ -23,7 +23,7 @@ public class MineSweeperGame {
 
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				board[i][j] = new SafeTile();
+				board[i][j] = new SafeTile(i, j);
 			}
 		}
 	}
@@ -96,7 +96,6 @@ public class MineSweeperGame {
 			x = rand.nextInt(width);
 			y = rand.nextInt(height);
 			currTile = board[x][y];
-			// Should it not be (x == startX && y == startY)
 			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
 				board[x][y] = new Tile();
 				bombsPlaced++;

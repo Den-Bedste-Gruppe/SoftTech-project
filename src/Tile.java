@@ -1,14 +1,13 @@
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-
 public class Tile {
 	private int marker = 0;
 	private boolean shown;
     
 	
     
-    
+    public int[] getCoords() {
+    	int[] array = {0, 0};
+    	return array;
+    }
 	
 	public boolean isShown() {
 		return shown;

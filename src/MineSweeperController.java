@@ -140,8 +140,10 @@ public class MineSweeperController {
 			//close();
 			//return;
 		}
+		/*
 		coords[0] = x;
 		coords[1] = y;
+		*/
 		revealTile();
 		if(game.isWon()) {
 			System.out.println("Win");
@@ -185,18 +187,21 @@ public class MineSweeperController {
 						continue;
 					}
 					System.out.println("4");
-					TileClicked(tempX, tempY);
-					//adjTiles[counter] = game.getTile(tempX, tempY);
-					counter++;
-					
+					//TileClicked(tempX, tempY);
+					if (!game.getTile(tempX, tempY).getFlag()) {
+						adjTiles[counter] = game.getTile(tempX, tempY);
+						counter++;
+					}
 				}
 			}
-			/*
+			
 			for (int i = 0; i < adjTiles.length; i++) {
 				System.out.println("5");
-				
+				currTile = adjTiles[i];
+				int[] currCoords = currTile.getCoords();
+				TileClicked(currCoords[0], currCoords[1]);
 			}
-			*/
+			
 		}		
 	}
 	
