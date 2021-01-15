@@ -37,6 +37,8 @@ public class MineSweeperController {
 
 	private Tile currTile;
 	
+	private Tile[] adjTiles = new Tile[8];
+	
 	private Button button;
 
 	public static void setGame(MineSweeperGame mgame) {
@@ -57,6 +59,15 @@ public class MineSweeperController {
 	}
 	
 	
+	
+	public void TileClicked(int x, int y) {
+		currTile = game.getTile(x, y);
+		if(currTile.isShown()) {
+			return;
+			//redudant?
+		}
+		unmarkedTile(x, y);
+	}
 	
 	public void TileClicked(MouseEvent e) {
 		button = ((Button)e.getSource());
@@ -125,51 +136,69 @@ public class MineSweeperController {
 	private void unmarkedTile(int x, int y) {
 		if(!(currTile instanceof SafeTile)) {
 			//add some other exit option?
-			close();
-			return;
+			System.out.println("Bomb");
+			//close();
+			//return;
 		}
+		coords[0] = x;
+		coords[1] = y;
 		revealTile();
 		if(game.isWon()) {
-			System.out.println("you won!");
-			close();
+			System.out.println("Win");
+			//close();
 		}
 		
 	}
 	
 	private void revealTile() {
 		game.showTile(currTile);
-		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
-		button.setText("" + currTile.getAdjBombs());
+		if (currTile.getAdjBombs() == 0) {
+			zeroSolver();
+		}
 		
+		button.getStyleClass().add("bombs-" + currTile.getAdjBombs());
+		if (currTile.getAdjBombs() != 0) {
+			button.setText("" + currTile.getAdjBombs());
+		}
 		
 	}
 	
-	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
-	//er hoved metode som står for det meste når man klikker på et felt som ikke er vist
-	/*
-	private void zeroSolver(int x, int y) {
-		Tile tempTile;
-		revealTile(x,y);
-		int tempX, tempY;
-		for(int i = -1; i <= 1; i++) {
-			tempY = y + i;
-			if(tempY >= 0 && tempY < game.getHeight()) {
+	
+	private void zeroSolver() {
+		System.out.println("1");
+		if (currTile.isShown() && currTile.getFlag()) {
+			System.out.println("A");
+			return;
+		}
+		
+		if (currTile.getAdjBombs() == 0) {
+			currTile.setFlag();
+			System.out.println("2");
+			int counter = 0;
+			for(int i = -1; i <= 1; i++) {
 				for(int j = -1; j <= 1; j++) {
-					tempX = x + j;
-					if(tempX >= 0 && tempX < game.getWidth()) {
-						tempTile = game.getTile(tempX, tempY);
-						if(tempTile instanceof SafeTile) {
-							//den autorevealer også felter med spørgsmåltegn hvis de er clean
-							if(tempTile.getAdjBombs() == 0 && !tempTile.isShown() && !(tempTile.getMarker()==1)) {
-								zeroSolver(tempX, tempY);
-							}
-						}
+					System.out.println("3");
+					int tempX = coords[0] + i;
+					int tempY = coords[1] + j;
+					if((i == 0 && j == 0) || tempX > game.getWidth() || tempY > game.getHeight() || tempX < 0 || tempY < 0 ) {
+						System.out.println("B");
+						continue;
 					}
+					System.out.println("4");
+					TileClicked(tempX, tempY);
+					//adjTiles[counter] = game.getTile(tempX, tempY);
+					counter++;
+					
 				}
 			}
-		}
+			/*
+			for (int i = 0; i < adjTiles.length; i++) {
+				System.out.println("5");
+				
+			}
+			*/
+		}		
 	}
-	*/
 	
 	
 	private void flaggedTile() {

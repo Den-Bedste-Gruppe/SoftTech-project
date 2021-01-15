@@ -34,4 +34,12 @@ public class Tile {
 		return;
 	}
 	
+	public boolean getFlag() {
+		return false;
+	}
+	
+	public void setFlag() {
+		return;
+	}
+	
 }

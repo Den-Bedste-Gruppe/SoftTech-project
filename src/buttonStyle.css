@@ -6,6 +6,10 @@
   -fx-background-radius: 5px;
 }
 
+.bombs-0 {
+  -fx-background-color: white;
+}
+
 .bombs-1 {
   -fx-text-fill: blue;
 }
