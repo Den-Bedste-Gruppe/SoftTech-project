@@ -5,9 +5,7 @@ public class SafeTile extends Tile {
 	private int[] tileCoords;
 	
 	public SafeTile(int x, int y) {
-		int[] tileCoords = new int[2];
-		tileCoords[0] = x;
-		tileCoords[1] = y;
+		tileCoords = new int[] {x, y};
 	}
 	
 	public int[] getCoords() {

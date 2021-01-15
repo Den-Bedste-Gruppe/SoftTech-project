@@ -5,7 +5,7 @@ public class Tile {
 	
     
     public int[] getCoords() {
-    	int[] array = {0, 0};
+    	int[] array = new int[]{0, 0};
     	return array;
     }
 	

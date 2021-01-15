@@ -185,12 +185,13 @@ public class MineSweeperController {
 					if((i == 0 && j == 0) || tempX > game.getWidth() || tempY > game.getHeight() || tempX < 0 || tempY < 0 ) {
 						System.out.println("B");
 						continue;
-					}
-					System.out.println("4");
-					//TileClicked(tempX, tempY);
-					if (!game.getTile(tempX, tempY).getFlag()) {
-						adjTiles[counter] = game.getTile(tempX, tempY);
-						counter++;
+					} else {
+						System.out.println("4");
+						//TileClicked(tempX, tempY);
+						if (!game.getTile(tempX, tempY).getFlag()) {
+							adjTiles[counter] = game.getTile(tempX, tempY);
+							counter++;
+						}
 					}
 				}
 			}
@@ -198,7 +199,9 @@ public class MineSweeperController {
 			for (int i = 0; i < adjTiles.length; i++) {
 				System.out.println("5");
 				currTile = adjTiles[i];
-				int[] currCoords = currTile.getCoords();
+				int[] currCoords = new int[2];
+				currCoords[0] = currTile.getCoords()[0];
+				currCoords[1] = currTile.getCoords()[1];
 				TileClicked(currCoords[0], currCoords[1]);
 			}
 			
