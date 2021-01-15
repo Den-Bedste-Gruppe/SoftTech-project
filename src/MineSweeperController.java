@@ -1,17 +1,9 @@
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.input.*;
 
@@ -62,6 +54,10 @@ public class MineSweeperController {
 	
 	public void TileClicked(int x, int y) {
 		currTile = game.getTile(x, y);
+		String s = "" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
+		System.out.println(s);
+		button = ((Button) board.lookup(s));
+		System.out.println("" + button.getId());
 		if(currTile.isShown()) {
 			return;
 			//redudant?
@@ -71,6 +67,7 @@ public class MineSweeperController {
 	
 	public void TileClicked(MouseEvent e) {
 		button = ((Button)e.getSource());
+		System.out.println("" + button.getId());
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
@@ -140,10 +137,8 @@ public class MineSweeperController {
 			//close();
 			//return;
 		}
-		/*
 		coords[0] = x;
 		coords[1] = y;
-		*/
 		revealTile();
 		if(game.isWon()) {
 			System.out.println("Win");
@@ -159,9 +154,12 @@ public class MineSweeperController {
 		}
 		
 		button.getStyleClass().add("bombs-" + currTile.getAdjBombs());
+		/*
 		if (currTile.getAdjBombs() != 0) {
 			button.setText("" + currTile.getAdjBombs());
 		}
+		*/
+		button.setText("" + currTile.getAdjBombs());
 		
 	}
 	
@@ -182,7 +180,7 @@ public class MineSweeperController {
 					System.out.println("3");
 					int tempX = coords[0] + i;
 					int tempY = coords[1] + j;
-					if((i == 0 && j == 0) || tempX > game.getWidth() || tempY > game.getHeight() || tempX < 0 || tempY < 0 ) {
+					if((i == 0 && j == 0) || tempX > game.getWidth() - 1 || tempY > game.getHeight() - 1 || tempX < 0 || tempY < 0 ) {
 						System.out.println("B");
 						continue;	
 					} else {
@@ -195,7 +193,7 @@ public class MineSweeperController {
 					}
 				}
 			}
-			
+			counter = 0;
 			for (int i = 0; i < adjTiles.length; i++) {
 				System.out.println("5");
 				currTile = adjTiles[i];
