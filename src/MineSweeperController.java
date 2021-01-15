@@ -44,6 +44,7 @@ public class MineSweeperController {
 	}
 
 	public void initialize() {
+		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
 		for (int i = 0; i < game.getHeight(); i++) {
 			for (int j = 0; j < game.getWidth(); j++) {
 				Button btn = new Button("");
@@ -101,7 +102,7 @@ public class MineSweeperController {
 				button.setText("");
 				break;
 			}
-			bombLabel.setText("" + game.getFlagCounter() + "/" + game.getNumOfBombs());
+			bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
 			currTile.incMarker();
 			return;
 		}

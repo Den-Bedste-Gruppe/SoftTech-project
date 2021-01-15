@@ -50,7 +50,7 @@
                <bottom>
                   <HBox alignment="CENTER_LEFT">
                      <children>
-                        <Label fx:id="bombLabel" text="0">
+                        <Label fx:id="bombLabel" text="flag">
                            <padding>
                               <Insets right="20.0" />
                            </padding>
