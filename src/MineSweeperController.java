@@ -184,7 +184,7 @@ public class MineSweeperController {
 					int tempY = coords[1] + j;
 					if((i == 0 && j == 0) || tempX > game.getWidth() || tempY > game.getHeight() || tempX < 0 || tempY < 0 ) {
 						System.out.println("B");
-						continue;
+						continue;	
 					} else {
 						System.out.println("4");
 						//TileClicked(tempX, tempY);
