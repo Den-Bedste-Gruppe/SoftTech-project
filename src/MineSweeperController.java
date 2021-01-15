@@ -101,7 +101,7 @@ public class MineSweeperController {
 				button.setText("");
 				break;
 			}
-			bombLabel.setText(""+game.getFlagCounter());
+			bombLabel.setText("" + game.getFlagCounter() + "/" + game.getNumOfBombs());
 			currTile.incMarker();
 			return;
 		}
