@@ -119,18 +119,20 @@ public class MineSweeperController {
 	
 	
 	private void unmarkedTile(int x, int y) {
-		revealTile();
 		if(!(currTile instanceof SafeTile)) {
 			//add some other exit option?
 			close();
 		}
-		
-		
+		revealTile();
+		if(game.isWon()) {
+			System.out.println("you won!");
+			close();
+		}
 		
 	}
 	
 	private void revealTile() {
-		currTile.setShown();
+		game.showTile(currTile);
 		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
 		button.setText("" + currTile.getAdjBombs());
 		

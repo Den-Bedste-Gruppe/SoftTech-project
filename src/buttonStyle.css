@@ -1,7 +1,9 @@
 .button {
   -fx-background-color: silver;
   -fx-border-radius: 5px;
-  -fx-border-size: 3px;
+  -fx-border-size: 5px;
+  -fx-border-color: black;
+  -fx-background-radius: 5px;
 }
 
 .bombs-1 {
