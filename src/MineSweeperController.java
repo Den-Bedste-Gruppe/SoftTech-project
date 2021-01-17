@@ -29,8 +29,6 @@ public class MineSweeperController {
 
 	private Tile currTile;
 	
-	private Tile[] adjTiles = new Tile[8];
-	
 	private Button button;
 
 	public static void setGame(MineSweeperGame mgame) {
@@ -52,27 +50,21 @@ public class MineSweeperController {
 	
 	
 	
-	public void SimulateClick() {
-		//currTile = game.getTile(x, y);
-		String s = "" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
-		//String s = "#" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
+	public void SimulateClick(int x, int y) {
+		currTile = game.getTile(x, y);
+		//String s = "" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
+		String s = "#" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
 		System.out.println(s);
+		//System.out.println(MineSweeperApplication.window.getScene());
 		button = ((Button)board.lookup(s));
-		System.out.println(button.getId());
-		
-		if(currTile.isShown()) {
-			return;
-		}
+		//System.out.println(button.getId());
 		unmarkedTile(coords[0], coords[1]);
-		if (currTile.getAdjBombs() == 0 && !currTile.isShown()) {
-			zeroSolver();
-		}
 	}
 	
 	public void TileClicked(MouseEvent e) {
 		button = ((Button)e.getSource());
-		System.out.println(button.getId());
-		//getting cordinates from button clicked, and tile model from that location
+		System.out.println("CLICKED " + button.getId());
+		//getting coordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
 		coords[0] = Integer.parseInt(coordString[0]);
@@ -82,7 +74,7 @@ public class MineSweeperController {
 		if(game.getRounds() == 0) {
 			game.placeBombs(coords[0], coords[1]);
 			game.incRounds();
-			revealTile();
+			revealTile(coords[0], coords[1]);
 			System.out.println(game);
 			return;
 		}
@@ -121,11 +113,6 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			
-			if (currTile.getAdjBombs() == 0 && !currTile.isShown()) {
-				System.out.println("Test");
-				zeroSolver();
-			}
 			unmarkedTile(coords[0], coords[1]);
 			return;
 		case 1:
@@ -148,7 +135,7 @@ public class MineSweeperController {
 		}
 		coords[0] = x;
 		coords[1] = y;
-		revealTile();
+		revealTile(coords[0], coords[1]);
 		if(game.isWon()) {
 			System.out.println("Win");
 			//close();
@@ -156,7 +143,8 @@ public class MineSweeperController {
 		
 	}
 	
-	private void revealTile() {
+	private void revealTile(int x, int y) {
+		currTile = game.getTile(x, y);
 		game.showTile(currTile);		
 		System.out.println(button.getId());
 		button.getStyleClass().add("bombs-" + currTile.getAdjBombs());
@@ -166,62 +154,43 @@ public class MineSweeperController {
 		}
 		*/
 		button.setText("" + currTile.getAdjBombs());
-		
+		if (currTile.getAdjBombs() == 0) {
+			System.out.println("Test");
+			zeroSolver(coords[0], coords[1]);
+		}
 	}
 	
 	
-	private void zeroSolver() {
-		System.out.println("1");
+	private void zeroSolver(int x, int y) {
+		System.out.println("ZERO");
+		currTile = game.getTile(x, y);
+		coords[0] = currTile.getCoords()[0];
+		coords[1] = currTile.getCoords()[1];
 		
-		if (currTile.getFlag()) {
+		
+		if(x < 0 || y < 0 || x >= game.getWidth() || y >= game.getHeight() || currTile.getAdjBombs() > 0){
+			System.out.println("1");
+			return;
+		} else if (currTile.getFlag()) {
 			System.out.println("A");
 			return;
-		}
-		
-		if (currTile.getAdjBombs() == 0) {
+		} else {
 			currTile.setFlag();
-			revealTile();
+			revealTile(coords[0], coords[1]);
 			System.out.println("2");
-			int counter = 0;
-			int tempX, tempY;
-			for(int i = -1; i <= 1; i++) {
-				for(int j = -1; j <= 1; j++) {
-					System.out.println("3");
-					tempX = coords[0] + i;
-					tempY = coords[1] + j;
-					if((i == 0 && j == 0) || tempX > game.getWidth() - 1 || tempY > game.getHeight() - 1 || tempX < 0 || tempY < 0 ) {
-						System.out.println("B");
-						continue;	
-					} else {
-						System.out.println("4");
-						//SimulateClick();
-						if (!game.getTile(tempX, tempY).getFlag()) {
-							//adjTiles[counter] = game.getTile(tempX, tempY);
-							currTile = game.getTile(tempX, tempY);
-							counter++;
-							zeroSolver();
-						}
-					}
-				}
-			}
-			/*
-			counter = 0;
-			for (int i = 0; i < adjTiles.length; i++) {
-				System.out.println("5");
-				currTile = adjTiles[i];
-				/*
-				int[] currCoords = new int[2];
-				currCoords[0] = currTile.getCoords()[0];
-				currCoords[1] = currTile.getCoords()[1];
+			SimulateClick(x - 1, y);
+			SimulateClick(x + 1, y);
+			SimulateClick(x, y - 1);
+			SimulateClick(x, y + 1);
+			//Recursion
+		}
+					
 				
-				coords[0] = currTile.getCoords()[0];
-				coords[1] = currTile.getCoords()[1];
-				SimulateClick();
-			}
-		*/
-			
-		}		
 	}
+	
+	
+	
+	
 	
 	
 	private void flaggedTile() {
@@ -240,3 +209,63 @@ public class MineSweeperController {
 	}
 
 }
+/*
+
+
+
+
+private void zeroSolver() {
+	System.out.println("1");
+	
+	if (currTile.getFlag()) {
+		System.out.println("A");
+		return;
+	}
+	
+	if (currTile.getAdjBombs() == 0) {
+		currTile.setFlag();
+		revealTile();
+		System.out.println("2");
+		int counter = 0;
+		int tempX, tempY;
+		for(int i = -1; i <= 1; i++) {
+			for(int j = -1; j <= 1; j++) {
+				System.out.println("3");
+				tempX = coords[0] + i;
+				tempY = coords[1] + j;
+				if((i == 0 && j == 0) || tempX > game.getWidth() - 1 || tempY > game.getHeight() - 1 || tempX < 0 || tempY < 0 ) {
+					System.out.println("B");
+					continue;	
+				} else {
+					System.out.println("4");
+					//SimulateClick();
+					if (!game.getTile(tempX, tempY).getFlag()) {
+						//adjTiles[counter] = game.getTile(tempX, tempY);
+						currTile = game.getTile(tempX, tempY);
+						counter++;
+						zeroSolver();
+					}
+				}
+			}
+		}
+		
+		counter = 0;
+		for (int i = 0; i < adjTiles.length; i++) {
+			System.out.println("5");
+			currTile = adjTiles[i];
+			
+			int[] currCoords = new int[2];
+			currCoords[0] = currTile.getCoords()[0];
+			currCoords[1] = currTile.getCoords()[1];
+			
+			coords[0] = currTile.getCoords()[0];
+			coords[1] = currTile.getCoords()[1];
+			SimulateClick();
+		}
+	
+		
+	}
+			
+}
+
+*/
