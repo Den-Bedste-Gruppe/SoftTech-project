@@ -52,22 +52,26 @@ public class MineSweeperController {
 	
 	
 	
-	public void TileClicked(int x, int y) {
-		currTile = game.getTile(x, y);
+	public void SimulateClick() {
+		//currTile = game.getTile(x, y);
 		String s = "" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
+		//String s = "#" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
 		System.out.println(s);
-		button = ((Button) board.lookup(s));
-		System.out.println("" + button.getId());
+		button = ((Button)board.lookup(s));
+		System.out.println(button.getId());
+		
 		if(currTile.isShown()) {
 			return;
-			//redudant?
 		}
-		unmarkedTile(x, y);
+		unmarkedTile(coords[0], coords[1]);
+		if (currTile.getAdjBombs() == 0 && !currTile.isShown()) {
+			zeroSolver();
+		}
 	}
 	
 	public void TileClicked(MouseEvent e) {
 		button = ((Button)e.getSource());
-		System.out.println("" + button.getId());
+		System.out.println(button.getId());
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
@@ -117,6 +121,11 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
+			
+			if (currTile.getAdjBombs() == 0 && !currTile.isShown()) {
+				System.out.println("Test");
+				zeroSolver();
+			}
 			unmarkedTile(coords[0], coords[1]);
 			return;
 		case 1:
@@ -148,11 +157,8 @@ public class MineSweeperController {
 	}
 	
 	private void revealTile() {
-		game.showTile(currTile);
-		if (currTile.getAdjBombs() == 0) {
-			zeroSolver();
-		}
-		
+		game.showTile(currTile);		
+		System.out.println(button.getId());
 		button.getStyleClass().add("bombs-" + currTile.getAdjBombs());
 		/*
 		if (currTile.getAdjBombs() != 0) {
@@ -166,42 +172,53 @@ public class MineSweeperController {
 	
 	private void zeroSolver() {
 		System.out.println("1");
-		if (currTile.isShown() && currTile.getFlag()) {
+		
+		if (currTile.getFlag()) {
 			System.out.println("A");
 			return;
 		}
 		
 		if (currTile.getAdjBombs() == 0) {
 			currTile.setFlag();
+			revealTile();
 			System.out.println("2");
 			int counter = 0;
+			int tempX, tempY;
 			for(int i = -1; i <= 1; i++) {
 				for(int j = -1; j <= 1; j++) {
 					System.out.println("3");
-					int tempX = coords[0] + i;
-					int tempY = coords[1] + j;
+					tempX = coords[0] + i;
+					tempY = coords[1] + j;
 					if((i == 0 && j == 0) || tempX > game.getWidth() - 1 || tempY > game.getHeight() - 1 || tempX < 0 || tempY < 0 ) {
 						System.out.println("B");
 						continue;	
 					} else {
 						System.out.println("4");
-						//TileClicked(tempX, tempY);
+						//SimulateClick();
 						if (!game.getTile(tempX, tempY).getFlag()) {
-							adjTiles[counter] = game.getTile(tempX, tempY);
+							//adjTiles[counter] = game.getTile(tempX, tempY);
+							currTile = game.getTile(tempX, tempY);
 							counter++;
+							zeroSolver();
 						}
 					}
 				}
 			}
+			/*
 			counter = 0;
 			for (int i = 0; i < adjTiles.length; i++) {
 				System.out.println("5");
 				currTile = adjTiles[i];
+				/*
 				int[] currCoords = new int[2];
 				currCoords[0] = currTile.getCoords()[0];
 				currCoords[1] = currTile.getCoords()[1];
-				TileClicked(currCoords[0], currCoords[1]);
+				
+				coords[0] = currTile.getCoords()[0];
+				coords[1] = currTile.getCoords()[1];
+				SimulateClick();
 			}
+		*/
 			
 		}		
 	}

@@ -13,13 +13,12 @@ public class main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-	
+		window = primaryStage;
 		MineSweeperController.setGame(new MineSweeperGame(10, 10, 5));
-		primaryStage = FXMLLoader.load(main.class.getResource("grid2.fxml"));
-		primaryStage.getScene().getStylesheets().add("buttonStyle.css");
+		window = FXMLLoader.load(main.class.getResource("grid2.fxml"));
+		window.getScene().getStylesheets().add("buttonStyle.css");
 		
-
-		primaryStage.show();
+		window.show();
 		
 		
 	}
