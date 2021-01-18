@@ -1,9 +1,13 @@
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -194,4 +198,14 @@ public class MineSweeperController {
 		stage.close();
 	}
 
+	public void newGame (ActionEvent event) throws IOException {
+		Scene tableViewScene = FXMLLoader.load(main.class.getResource("menu.fxml"));
+		
+		Stage stage = (Stage) board.getScene().getWindow();
+		stage.setScene(tableViewScene);
+		stage.getScene().getStylesheets().add("buttonStyle.css");
+		stage.show();
+	}
+	
+	
 }

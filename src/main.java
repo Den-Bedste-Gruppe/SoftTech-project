@@ -23,15 +23,12 @@ public class main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-	
-
-
+		primaryStage.setTitle("MineSweeper Game");
 		MineSweeperController.setGame(new MineSweeperGame(10,10, 10));
-
-		primaryStage = FXMLLoader.load(main.class.getResource("grid2.fxml"));
+		Scene game = FXMLLoader.load(main.class.getResource("menu.fxml"));
+		primaryStage.setScene(game);
 		primaryStage.getScene().getStylesheets().add("buttonStyle.css");
 		
-
 		primaryStage.show();
 		
 		
