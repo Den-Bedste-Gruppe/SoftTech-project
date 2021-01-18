@@ -21,6 +21,9 @@ public class MineSweeperController {
 
 	@FXML
 	private GridPane board;
+	
+	@FXML
+	private Label bombLabel;
 
 	@FXML
 	private ResourceBundle resources;
@@ -43,12 +46,14 @@ public class MineSweeperController {
 	}
 
 	public void initialize() {
-		Label text;
+
+		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
+
 		for (int i = 0; i < game.getHeight(); i++) {
 			for (int j = 0; j < game.getWidth(); j++) {
 				StackPane btn = new StackPane();
-				text = new Label("");
-				btn.getChildren().addAll(new Rectangle(50,50, Color.LIGHTGRAY), text);
+	
+				btn.getChildren().addAll(new Rectangle(50,50, Color.LIGHTGRAY));
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(22, 22);
 				board.add(btn, i, j);
@@ -59,7 +64,6 @@ public class MineSweeperController {
 		}
 	}
 	
-
 
 	public void TileClicked(MouseEvent e) {
 		stackPane = ((StackPane)e.getSource());
@@ -75,6 +79,7 @@ public class MineSweeperController {
 			game.placeBombs(coords[0], coords[1]);
 			game.incRounds();
 			revealTile();
+			System.out.println(game);
 			return;
 		}
 
@@ -110,7 +115,7 @@ public class MineSweeperController {
 				text.setText("");
 				break;
 			}
-			
+			bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
 			currTile.incMarker();
 			return;
 		}
@@ -132,20 +137,29 @@ public class MineSweeperController {
 	
 	
 	private void unmarkedTile(int x, int y) {
-		revealTile();
 		if(!(currTile instanceof SafeTile)) {
 			//add some other exit option?
 			close();
+			return;
 		}
-		
-		
+		revealTile();
+		if(game.isWon()) {
+			System.out.println("you won!");
+			close();
+		}
 		
 	}
 	
 	private void revealTile() {
+
 		currTile.setShown();
 		stackPane.getChildren().add(new Label(""+currTile.getAdjBombs()));
 		//button.setText("" + currTile.getAdjBombs());
+
+		game.showTile(currTile);
+//		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
+//		button.setText("" + currTile.getAdjBombs());
+
 		
 		
 	}

@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 public class MineSweeperGame {
 	private boolean done, won;
 	private Tile[][] board;
-	private int height, width, flagCounter, numOfBombs, rounds;
+	private int height, width, flagCounter, numOfBombs, rounds, fieldsToWin;
 	private Random rand = new Random();
 	
 	
@@ -17,6 +17,7 @@ public class MineSweeperGame {
 		this.height = height;
 		this.width = width;
 		this.numOfBombs = numOfBombs;
+		fieldsToWin = height*width - numOfBombs;
 		
 		board = new Tile[height][width];
 
@@ -26,6 +27,14 @@ public class MineSweeperGame {
 			}
 		}
 	}
+	
+	public void showTile(Tile tile){
+		tile.setShown();
+		fieldsToWin--;
+		if(fieldsToWin==0) {
+			won = true;
+		}
+	};
 	
 	public Tile getTile(int x, int y) {
 		return board[x][y];
@@ -82,15 +91,17 @@ public class MineSweeperGame {
 		int bombsPlaced = 0;
 		int x, y;
 		Tile currTile;
+		System.out.println(startX+"-"+startY);
 		while(bombsPlaced < numOfBombs) {
 			x = rand.nextInt(width);
 			y = rand.nextInt(height);
-			currTile = board[y][x];
+			currTile = board[x][y];
 			// Should it not be (x == startX && y == startY)
-			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) {
-				board[y][x] = new Tile(); 
+			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
+				board[x][y] = new Tile();
 				bombsPlaced++;
-				incNeighbours(x, y);
+				incNeighbours(y, x);
+
 			}
 		}
 		System.out.println("Bombs placed");

@@ -24,8 +24,12 @@ public class main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 	
-		MineSweeperController.setGame(new MineSweeperGame(4,4, 10));
+
+
+		MineSweeperController.setGame(new MineSweeperGame(50,50, 50));
+
 		primaryStage = FXMLLoader.load(main.class.getResource("grid2.fxml"));
+		primaryStage.getScene().getStylesheets().add("buttonStyle.css");
 		
 
 		primaryStage.show();

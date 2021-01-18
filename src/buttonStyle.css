@@ -1,0 +1,39 @@
+.button {
+  -fx-background-color: silver;
+  -fx-border-radius: 5px;
+  -fx-border-size: 5px;
+  -fx-border-color: black;
+  -fx-background-radius: 5px;
+}
+
+.bombs-1 {
+  -fx-text-fill: blue;
+}
+
+.bombs-2 {
+  -fx-text-fill: green;
+}
+
+.bombs-3 {
+  -fx-text-fill: red;
+}
+
+.bombs-4 {
+  -fx-text-fill: purple;
+}
+
+.bombs-5 {
+  -fx-text-fill: maroon;
+}
+
+.bombs-6 {
+  -fx-text-fill: turquoise;
+}
+
+.bombs-7 {
+  -fx-text-fill: black;
+}
+
+.bombs-8 {
+  -fx-text-fill: grey;
+}
