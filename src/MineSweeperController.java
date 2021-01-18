@@ -203,7 +203,7 @@ public class MineSweeperController {
 		
 		Stage stage = (Stage) board.getScene().getWindow();
 		stage.setScene(tableViewScene);
-		stage.getScene().getStylesheets().add("buttonStyle.css");
+		//stage.getScene().getStylesheets().add("buttonStyle.css");
 		stage.show();
 	}
 	
