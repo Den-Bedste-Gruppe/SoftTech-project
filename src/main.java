@@ -26,7 +26,7 @@ public class main extends Application {
 	
 
 
-		MineSweeperController.setGame(new MineSweeperGame(50,50, 50));
+		MineSweeperController.setGame(new MineSweeperGame(10,10, 10));
 
 		primaryStage = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 		primaryStage.getScene().getStylesheets().add("buttonStyle.css");

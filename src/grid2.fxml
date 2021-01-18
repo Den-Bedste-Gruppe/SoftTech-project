@@ -12,11 +12,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<<<<<<< HEAD
-<Stage height="800.0" title="MineSweeper" width="1200.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
-=======
+
 <Stage height="600.0" minHeight="200.0" minWidth="200.0" onCloseRequest="#close" title="MineSweeper" width="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
->>>>>>> philipController
+
    <scene>
       <Scene stylesheets="@cssFiler/test.css">
          <root>
@@ -52,13 +50,7 @@
                   </MenuBar>
                </top>
                <bottom>
-<<<<<<< HEAD
-                  <VBox BorderPane.alignment="CENTER">
-                     <children>
-                        <Label text="Label" />
-                     </children>
-                  </VBox>
-=======
+
                   <HBox alignment="CENTER_LEFT">
                      <children>
                         <Label fx:id="bombLabel" text="flag">
@@ -74,7 +66,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
->>>>>>> philipController
+
                </bottom>
             </BorderPane>
          </root>

@@ -39,7 +39,7 @@ public class MineSweeperController {
 
 	private Tile currTile;
 	private StackPane stackPane;
-	//private Button button;
+	private Button button;
 	private Label flag ;
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
@@ -51,11 +51,9 @@ public class MineSweeperController {
 
 		for (int i = 0; i < game.getHeight(); i++) {
 			for (int j = 0; j < game.getWidth(); j++) {
-				StackPane btn = new StackPane();
-	
-				btn.getChildren().addAll(new Rectangle(50,50, Color.LIGHTGRAY));
+				Button btn = new Button("");
 				btn.setMaxSize(50, 50);
-				btn.setMinSize(22, 22);
+				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
 				btn.setId(i + " . " + j);
 				btn.setOnMouseClicked(e -> TileClicked(e));
@@ -66,11 +64,10 @@ public class MineSweeperController {
 	
 
 	public void TileClicked(MouseEvent e) {
-		stackPane = ((StackPane)e.getSource());
-		
+		button = ((Button)e.getSource());
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
-		coordString = stackPane.getId().split(" . ");
+		coordString = button.getId().split(" . ");
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
 		currTile = game.getTile(coords[0], coords[1]);
@@ -95,24 +92,18 @@ public class MineSweeperController {
 		tileMarker = currTile.getMarker();
 		//for changing markers
 		if(e.getButton() == MouseButton.SECONDARY) {
-			Label text = (Label) (stackPane.getChildren().get(1));
-//			stackPane.getChildren().remove(flag);
-//			stackPane.getChildren().add(flag = new Label());
 			switch(tileMarker) {
 			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
-				text.setText("F");
-
-				
+				button.setText("F");
 				break;
 			case 1:
 				game.incFlagCounter(-1);
-				text.setText("?");
-
+				button.setText("?");
 				break;
 			case 2:
-				text.setText("");
+				button.setText("");
 				break;
 			}
 			bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
@@ -152,14 +143,9 @@ public class MineSweeperController {
 	
 	private void revealTile() {
 
-		currTile.setShown();
-		stackPane.getChildren().add(new Label(""+currTile.getAdjBombs()));
-		//button.setText("" + currTile.getAdjBombs());
-
 		game.showTile(currTile);
-//		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
-//		button.setText("" + currTile.getAdjBombs());
-
+		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
+		button.setText("" + currTile.getAdjBombs());
 		
 		
 	}
