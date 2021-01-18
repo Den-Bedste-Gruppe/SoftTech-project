@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 
 <Scene stylesheets="@cssFiler/test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
@@ -27,20 +28,10 @@
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Menu">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#close" text="Close" />
                         <MenuItem mnemonicParsing="false" onAction="#newGame" text="New Game" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
               </menus>
@@ -54,6 +45,11 @@
                      <padding>
                         <Insets right="20.0" />
                      </padding>
+                  </Label>
+                  <Label fx:id="gameOver" text="Game Over" textAlignment="JUSTIFY" visible="false" wrapText="true">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
                   </Label>
                </children>
                <BorderPane.margin>

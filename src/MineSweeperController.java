@@ -28,6 +28,9 @@ public class MineSweeperController {
 	
 	@FXML
 	private Label bombLabel;
+	
+	@FXML
+	private Label gameOver;
 
 	@FXML
 	private ResourceBundle resources;
@@ -68,6 +71,9 @@ public class MineSweeperController {
 	
 
 	public void TileClicked(MouseEvent e) {
+		if(game.isDone()) {
+			return;
+		}
 		button = ((Button)e.getSource());
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
@@ -75,6 +81,7 @@ public class MineSweeperController {
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
 		currTile = game.getTile(coords[0], coords[1]);
+		
 		
 		if(game.getRounds() == 0) {
 			game.placeBombs(coords[0], coords[1]);
@@ -134,13 +141,18 @@ public class MineSweeperController {
 	private void unmarkedTile(int x, int y) {
 		if(!(currTile instanceof SafeTile)) {
 			//add some other exit option?
-			close();
+			gameOver.setText("GAME OVER: Try again?");
+			gameOver.setVisible(true);
+			game.setDone();
+			//close();
 			return;
 		}
 		revealTile();
 		if(game.isWon()) {
 			System.out.println("you won!");
-			close();
+			gameOver.setText("WINNER WINNER CHICKEN DINNER: Want to try again?");
+			gameOver.setVisible(true);
+			//close();
 		}
 		
 	}

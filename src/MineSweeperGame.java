@@ -67,10 +67,14 @@ public class MineSweeperGame {
 	public boolean isDone() {
 		return done;
 	}
+	public void setDone() {
+		done = true;
+	}
 	 
 	public boolean isWon() {
 		return won;
 	}
+	
 	
 	private void incNeighbours(int x, int y) {
 		int tempX, tempY;
@@ -95,12 +99,12 @@ public class MineSweeperGame {
 		while(bombsPlaced < numOfBombs) {
 			x = rand.nextInt(width);
 			y = rand.nextInt(height);
-			currTile = board[x][y];
+			currTile = board[y][x];
 			// Should it not be (x == startX && y == startY)
 			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
-				board[x][y] = new Tile();
+				board[y][x] = new Tile();
 				bombsPlaced++;
-				incNeighbours(y, x);
+				incNeighbours(x, y);
 
 			}
 		}
