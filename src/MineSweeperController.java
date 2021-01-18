@@ -1,6 +1,9 @@
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -22,13 +25,9 @@ public class MineSweeperController {
 	private URL location;
 
 	private static MineSweeperGame game;
-	
 	private int[] coords = new int[2];
-	
 	private int tileMarker;
-
 	private Tile currTile;
-	
 	private Button button;
 
 	public static void setGame(MineSweeperGame mgame) {
@@ -52,18 +51,22 @@ public class MineSweeperController {
 	
 	public void SimulateClick(int x, int y) {
 		currTile = game.getTile(x, y);
-		//String s = "" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
-		String s = "#" + currTile.getCoords()[0] + " . " + currTile.getCoords()[1];
-		System.out.println(s);
-		//System.out.println(MineSweeperApplication.window.getScene());
-		button = ((Button)board.lookup(s));
-		//System.out.println(button.getId());
+		ObservableList<Node> childrens = board.getChildren();
+
+	    for (Node btn : childrens) {
+	    	System.out.println(btn);
+	    	//not optimal
+	        if(board.getRowIndex(btn) == x && board.getColumnIndex(btn) == y) {
+	            button = (Button)btn;
+	            break;
+	        }
+	    }
+		
 		unmarkedTile(coords[0], coords[1]);
 	}
 	
 	public void TileClicked(MouseEvent e) {
 		button = ((Button)e.getSource());
-		System.out.println("CLICKED " + button.getId());
 		//getting coordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
@@ -145,51 +148,68 @@ public class MineSweeperController {
 	
 	private void revealTile(int x, int y) {
 		currTile = game.getTile(x, y);
+		if (!(currTile instanceof SafeTile)) {
+			button.setText("B");
+			return;
+		}
 		game.showTile(currTile);		
-		System.out.println(button.getId());
+		System.out.println("Styling " + button.getId());
 		button.getStyleClass().add("bombs-" + currTile.getAdjBombs());
-		/*
+		
 		if (currTile.getAdjBombs() != 0) {
 			button.setText("" + currTile.getAdjBombs());
 		}
-		*/
-		button.setText("" + currTile.getAdjBombs());
+		
+//		button.setText("" + currTile.getAdjBombs());
 		if (currTile.getAdjBombs() == 0) {
-			System.out.println("Test");
 			zeroSolver(coords[0], coords[1]);
 		}
 	}
 	
 	
 	private void zeroSolver(int x, int y) {
-		System.out.println("ZERO");
 		currTile = game.getTile(x, y);
 		coords[0] = currTile.getCoords()[0];
 		coords[1] = currTile.getCoords()[1];
 		
 		
-		if(x < 0 || y < 0 || x >= game.getWidth() || y >= game.getHeight() || currTile.getAdjBombs() > 0){
-			System.out.println("1");
-			return;
-		} else if (currTile.getFlag()) {
-			System.out.println("A");
+		if(currTile.getFlag() || x < 0 || y < 0 || x >= game.getWidth() || y >= game.getHeight() || currTile.getAdjBombs() > 0){
 			return;
 		} else {
 			currTile.setFlag();
 			revealTile(coords[0], coords[1]);
 			System.out.println("2");
-			SimulateClick(x - 1, y);
-			SimulateClick(x + 1, y);
-			SimulateClick(x, y - 1);
-			SimulateClick(x, y + 1);
-			//Recursion
-		}
-					
-				
+			
+			
+			//Super grimt, men det kan nok fixes
+			if (x > 0) {
+				SimulateClick(x - 1, y);
+			}
+			if (y > 0) {
+				SimulateClick(x, y - 1);
+			}
+			if (x <= game.getWidth()) {
+				SimulateClick(x + 1, y);
+			}
+			if (y <= game.getHeight()) {
+				SimulateClick(x, y + 1);
+			}
+			
+			
+			if (x > 0 && y > 0) {
+				SimulateClick(x - 1, y - 1);
+			}
+			if (x <= game.getWidth() && y > 0) {
+				SimulateClick(x + 1, y - 1);
+			}
+			if (x > 0 && y <= game.getHeight()) {
+				SimulateClick(x - 1, y + 1);
+			}
+			if (x <= game.getWidth() && y <= game.getHeight()) {
+				SimulateClick(x + 1, y + 1);
+			}
+		}				
 	}
-	
-	
-	
 	
 	
 	
