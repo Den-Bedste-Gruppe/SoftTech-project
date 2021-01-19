@@ -164,7 +164,10 @@ public class MineSweeperController {
 		game.showTile(currTile);
 		btn.getStyleClass().add("bombs-"+currTile.getAdjBombs());
 		btn.getStyleClass().add("shown");
-		btn.setText("" + currTile.getAdjBombs());
+		if (currTile.getAdjBombs() != 0) {
+			btn.setText("" + currTile.getAdjBombs());	
+		}
+		
 		
 		
 	}
