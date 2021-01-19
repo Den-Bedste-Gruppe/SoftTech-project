@@ -69,10 +69,9 @@ public class MineSweeperController {
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
-		coords[0] = Integer.parseInt(coordString[0]);
-		coords[1] = Integer.parseInt(coordString[1]);
-		int x = coords[0];
-		int y = coords[1];
+		int x = Integer.parseInt(coordString[0]);
+		int y = Integer.parseInt(coordString[1]);
+
 		Tile currTile = game.getTile(x, y);
 		Button btn = btnArray[x][y];
 		
