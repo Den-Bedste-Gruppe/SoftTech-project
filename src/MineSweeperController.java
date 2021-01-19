@@ -78,7 +78,7 @@ public class MineSweeperController {
 		
 		
 		if(game.getRounds() == 0) {
-			game.placeBombs(coords[0], coords[1]);
+			game.placeBombs(x, y);
 			System.out.println(game);
 		}
 
@@ -125,7 +125,7 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			unmarkedTile(coords[0], coords[1]);
+			unmarkedTile(x, y);
 			return;
 		case 1:
 			flaggedTile();
