@@ -17,7 +17,8 @@ public class main extends Application {
 		Scene game = FXMLLoader.load(main.class.getResource("menu.fxml"));
 		primaryStage.setScene(game);
 	//	primaryStage.getScene().getStylesheets().add("buttonStyle.css");
-		
+		primaryStage.setHeight(500);
+		primaryStage.setWidth(700);
 		primaryStage.show();
 		
 		
