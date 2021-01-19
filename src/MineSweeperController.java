@@ -36,10 +36,8 @@ public class MineSweeperController {
 	
 	private int[] coords = new int[2];
 	
-	private int tileMarker;
-
-	private Tile currTile;
-	private Button button;
+	private Button[][] btnArray;
+	
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
 	}
@@ -47,22 +45,23 @@ public class MineSweeperController {
 	public void initialize() {
 
 		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
-
+		btnArray = new Button[game.getHeight()][game.getWidth()];
 		for (int i = 0; i < game.getHeight(); i++) {
 			for (int j = 0; j < game.getWidth(); j++) {
 				Button btn = new Button("");
+				btnArray[i][j] = btn;
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
 				board.add(btn, i, j);
 				btn.setId(i + " . " + j);
 				btn.setOnMouseClicked(e -> TileClicked(e));
-			
 			}
 		}
 	}
 	
 
 	public void TileClicked(MouseEvent e) {
+		Button button;
 		if(game.isDone()) {
 			return;
 		}
@@ -72,15 +71,15 @@ public class MineSweeperController {
 		coordString = button.getId().split(" . ");
 		coords[0] = Integer.parseInt(coordString[0]);
 		coords[1] = Integer.parseInt(coordString[1]);
-		currTile = game.getTile(coords[0], coords[1]);
+		int x = coords[0];
+		int y = coords[1];
+		Tile currTile = game.getTile(x, y);
+		Button btn = btnArray[x][y];
 		
 		
 		if(game.getRounds() == 0) {
 			game.placeBombs(coords[0], coords[1]);
-			game.incRounds();
-			revealTile();
 			System.out.println(game);
-			return;
 		}
 
 		
@@ -92,7 +91,7 @@ public class MineSweeperController {
 		
 		game.incRounds();
 		
-		tileMarker = currTile.getMarker();
+		int tileMarker = currTile.getMarker();
 		//for changing markers
 		if(e.getButton() == MouseButton.SECONDARY) {
 			switch(tileMarker) {
@@ -139,22 +138,14 @@ public class MineSweeperController {
 	
 	
 	private void unmarkedTile(int x, int y) {
+		Tile currTile = game.getTile(x, y);
+		Button currBtn = btnArray[x][y];
+		revealTile(currTile, currBtn);
 		if(!(currTile instanceof SafeTile)) {
-//			ImageView iv = new ImageView(new Image("images/flag.png"));
-//			ImageView iv = new ImageView(new Image("images/corona.jpg"));
-			ImageView iv = new ImageView(new Image("images/oldMine.png"));
-//			ImageView iv = new ImageView(new Image("images/mine.png"));
-			iv.setFitHeight(45);
-			iv.setFitWidth(45);
-			button.setGraphic(iv);
-			//add some other exit option?
-			gameOver.setText("GAME OVER: Try again?");
-			gameOver.setVisible(true);
-			game.setDone();
-			//close();
+			gameOver(currBtn);
 			return;
 		}
-		revealTile();
+
 		if(game.isWon()) {
 			System.out.println("you won!");
 			gameOver.setText("WINNER WINNER CHICKEN DINNER: Want to try again?");
@@ -162,23 +153,26 @@ public class MineSweeperController {
 			//close();
 		}
 		
+		if(currTile.getAdjBombs()==0) {
+			zeroSolver(x, y);
+		}
+		
 	}
 	
-	private void revealTile() {
-
+	private void revealTile(Tile currTile, Button btn) {
 		game.showTile(currTile);
-		button.getStyleClass().add("bombs-"+currTile.getAdjBombs());
-		button.setText("" + currTile.getAdjBombs());
+		btn.getStyleClass().add("bombs-"+currTile.getAdjBombs());
+		btn.getStyleClass().add("shown");
+		btn.setText("" + currTile.getAdjBombs());
 		
 		
 	}
 	
 	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
 	//er hoved metode som står for det meste når man klikker på et felt som ikke er vist
-	/*
+	
 	private void zeroSolver(int x, int y) {
-		Tile tempTile;
-		revealTile(x,y);
+		Tile currTile = game.getTile(x, y);
 		int tempX, tempY;
 		for(int i = -1; i <= 1; i++) {
 			tempY = y + i;
@@ -186,19 +180,16 @@ public class MineSweeperController {
 				for(int j = -1; j <= 1; j++) {
 					tempX = x + j;
 					if(tempX >= 0 && tempX < game.getWidth()) {
-						tempTile = game.getTile(tempX, tempY);
-						if(tempTile instanceof SafeTile) {
-							//den autorevealer også felter med spørgsmåltegn hvis de er clean
-							if(tempTile.getAdjBombs() == 0 && !tempTile.isShown() && !(tempTile.getMarker()==1)) {
-								zeroSolver(tempX, tempY);
-							}
+						currTile = game.getTile(tempX, tempY);
+						if(!currTile.isShown() && !(currTile.getMarker()==1)) {
+							unmarkedTile(tempX, tempY);
 						}
 					}
 				}
 			}
 		}
 	}
-	*/
+	
 	
 	
 	private void flaggedTile() {
@@ -208,6 +199,20 @@ public class MineSweeperController {
 	private void questionTile() {
 		return ;
 
+	}
+	
+	public void gameOver(Button button) {
+//		ImageView iv = new ImageView(new Image("file:/C:/Users/Lucas/EclipseFiles/Test/src/FXMLtest/images/mine.png"));
+		ImageView iv = new ImageView(new Image("images/corona.jpg"));
+//		ImageView iv = new ImageView(new Image("images/mine.png"));
+		iv.setFitHeight(50);
+		iv.setFitWidth(50);
+		button.setGraphic(iv);
+		//add some other exit option?
+		gameOver.setText("GAME OVER: Try again?");
+		gameOver.setVisible(true);
+		game.setDone();
+		//close();
 	}
 	
 	

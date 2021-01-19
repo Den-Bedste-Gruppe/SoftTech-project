@@ -28,6 +28,7 @@ public class MineSweeperGame {
 		fieldsToWin--;
 		if(fieldsToWin==0) {
 			won = true;
+			done = true;
 		}
 	};
 	
