@@ -1,10 +1,5 @@
 import java.util.Random;
 
-import javafx.scene.Parent;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.Pane;
-
-
 public class MineSweeperGame {
 	private boolean done, won;
 	private Tile[][] board;
@@ -33,6 +28,7 @@ public class MineSweeperGame {
 		fieldsToWin--;
 		if(fieldsToWin==0) {
 			won = true;
+			done = true;
 		}
 	};
 	
