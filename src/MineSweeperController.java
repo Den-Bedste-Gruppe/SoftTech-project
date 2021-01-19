@@ -162,6 +162,7 @@ public class MineSweeperController {
 	private void revealTile(Tile currTile, Button btn) {
 		game.showTile(currTile);
 		btn.getStyleClass().add("bombs-"+currTile.getAdjBombs());
+		btn.getStyleClass().add("shown");
 		btn.setText("" + currTile.getAdjBombs());
 		
 		
