@@ -11,6 +11,7 @@ public class MineSweeperGame {
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
 		this.width = width;
+		System.out.println(height+" "+width);
 		this.numOfBombs = numOfBombs;
 		fieldsToWin = height*width - numOfBombs;
 		
@@ -18,7 +19,7 @@ public class MineSweeperGame {
 
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
-				board[x][y] = new SafeTile();
+				board[y][x] = new SafeTile();
 			}
 		}
 	}
@@ -76,10 +77,10 @@ public class MineSweeperGame {
 		int tempX, tempY;
 		for(int i = -1; i <= 1; i++) {
 			tempY = y + i;
-			if(tempY >= 0 && tempY < height) {
+			if(tempY >= 0 && tempY < width) {
 				for(int j = -1; j <= 1; j++) {
 					tempX = x + j;
-					if(tempX >= 0 && tempX < width) {
+					if(tempX >= 0 && tempX < height) {
 						board[tempX][tempY].incAdjBombs();
 					}
 				}
@@ -93,8 +94,8 @@ public class MineSweeperGame {
 		Tile currTile;
 		System.out.println(startX+"-"+startY);
 		while(bombsPlaced < numOfBombs) {
-			x = rand.nextInt(width);
-			y = rand.nextInt(height);
+			x = rand.nextInt(height);
+			y = rand.nextInt(width);
 			currTile = board[x][y];
 			// Should it not be (x == startX && y == startY)
 			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
@@ -112,6 +113,7 @@ public class MineSweeperGame {
 	}
 	
 	//for testing
+	/*
 	public String toString() {
 		String s = "";
 		for(int y = 0; y < width; y++) {
@@ -127,4 +129,5 @@ public class MineSweeperGame {
 		}
 		return s;
 	}
+	*/
 }

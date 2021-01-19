@@ -34,8 +34,6 @@ public class MineSweeperController {
 
 	private static MineSweeperGame game;
 	
-	private int[] coords = new int[2];
-	
 	private Button[][] btnArray;
 	
 	public static void setGame(MineSweeperGame mgame) {
@@ -47,8 +45,8 @@ public class MineSweeperController {
 		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
 
 		btnArray = new Button[game.getHeight()][game.getWidth()];
-		for (int y = 0; y < game.getHeight(); y++) {
-			for (int x = 0; x < game.getWidth(); x++) {
+		for (int x = 0; x < game.getHeight(); x++) {
+			for (int y = 0; y < game.getWidth(); y++) {
 				Button btn = new Button("");
 				btnArray[x][y] = btn;
 				btn.setMaxSize(50, 50);
@@ -72,9 +70,7 @@ public class MineSweeperController {
 		coordString = button.getId().split(" . ");
 		int x = Integer.parseInt(coordString[0]);
 		int y = Integer.parseInt(coordString[1]);
-
 		Tile currTile = game.getTile(x, y);
-		Button btn = btnArray[x][y];
 		
 		
 		if(game.getRounds() == 0) {
@@ -180,10 +176,10 @@ public class MineSweeperController {
 		int tempX, tempY;
 		for(int i = -1; i <= 1; i++) {
 			tempY = y + i;
-			if(tempY >= 0 && tempY < game.getHeight()) {
+			if(tempY >= 0 && tempY < game.getWidth()) {
 				for(int j = -1; j <= 1; j++) {
 					tempX = x + j;
-					if(tempX >= 0 && tempX < game.getWidth()) {
+					if(tempX >= 0 && tempX < game.getHeight()) {
 						currTile = game.getTile(tempX, tempY);
 						if(!currTile.isShown() && !(currTile.getMarker()==1)) {
 							unmarkedTile(tempX, tempY);
