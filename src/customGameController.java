@@ -14,7 +14,8 @@ public class customGameController {
 	@FXML
 	private TextField customHeight, customWidth, customBombs;
 	@FXML
-	private Label bombLabel;
+	private Label bombLabel, sizeLabel;
+	
 	@FXML
 	private Scene customScene;
 
@@ -27,7 +28,12 @@ public class customGameController {
 		savedBombs = Integer.parseInt(customBombs.getText());
 		if (savedBombs >= savedHeight*savedWidth) {
 			bombLabel.setVisible(true);
-			throw new IllegalArgumentException("To many bombs, must be less than (height*width)");	
+			return;
+		}
+		
+		if (savedHeight <4 || savedWidth <4 || savedHeight>100 || savedWidth>100) {
+			sizeLabel.setVisible(true);
+			return;
 		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
 		Scene game = FXMLLoader.load(main.class.getResource("grid2.fxml"));

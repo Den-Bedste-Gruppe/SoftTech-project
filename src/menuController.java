@@ -20,7 +20,7 @@ public class menuController {
 	
 	
 	public void createEasyGame (ActionEvent event) throws IOException {
-		MineSweeperController.setGame(new MineSweeperGame(5,5, 5));
+		MineSweeperController.setGame(new MineSweeperGame(6,6, 5));
 		Scene game = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 		
 		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
