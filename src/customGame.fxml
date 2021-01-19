@@ -7,14 +7,16 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <Scene fx:id="customScene" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="customGameController">
    <root>
@@ -79,17 +81,56 @@
          <bottom>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <Button layoutX="521.0" mnemonicParsing="false" onAction="#createCustomGame" text="Create Game">
+                  <Button layoutX="659.0" layoutY="12.0" mnemonicParsing="false" onAction="#createCustomGame" text="Create Game">
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding>
                   </Button>
+                  <Label fx:id="bombLabel" layoutX="226.0" layoutY="21.0" text="To many bombs. Must be less than (width x height)" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sizeLabel" layoutX="149.0" layoutY="2.0" text="The size of grid doesn't fit. Width and Height must be in range of 4 and 100." visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </AnchorPane>
          </bottom>
+         <right>
+            <VBox prefHeight="400.0" prefWidth="111.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="TOP_LEFT" text="Select theme:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <RadioButton mnemonicParsing="false" selected="true" text="Classic">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="Theme" />
+                     </toggleGroup>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton layoutX="10.0" layoutY="27.0" mnemonicParsing="false" text="Corona" toggleGroup="$Theme">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </RadioButton>
+                  <RadioButton layoutX="10.0" layoutY="64.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$Theme">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </RadioButton>
+               </children>
+            </VBox>
+         </right>
       </BorderPane>
    </root>
 </Scene>

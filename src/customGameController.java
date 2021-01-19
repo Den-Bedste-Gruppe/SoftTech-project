@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -12,6 +13,9 @@ public class customGameController {
 
 	@FXML
 	private TextField customHeight, customWidth, customBombs;
+	@FXML
+	private Label bombLabel, sizeLabel;
+	
 	@FXML
 	private Scene customScene;
 
@@ -22,6 +26,15 @@ public class customGameController {
 		savedHeight = Integer.parseInt(customHeight.getText());
 		savedWidth = Integer.parseInt(customWidth.getText());
 		savedBombs = Integer.parseInt(customBombs.getText());
+		if (savedBombs >= savedHeight*savedWidth) {
+			bombLabel.setVisible(true);
+			return;
+		}
+		
+		if (savedHeight <4 || savedWidth <4 || savedHeight>100 || savedWidth>100) {
+			sizeLabel.setVisible(true);
+			return;
+		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
 		Scene game = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 
