@@ -113,7 +113,8 @@ public class MineSweeperController {
 //				button.setText("?");
 				break;
 			case 2:
-				button.setText("");
+				button.setGraphic(null);
+				//button.setText("");
 				break;
 			}
 			bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
@@ -202,11 +203,11 @@ public class MineSweeperController {
 	}
 	
 	public void gameOver(Button button) {
-//		ImageView iv = new ImageView(new Image("file:/C:/Users/Lucas/EclipseFiles/Test/src/FXMLtest/images/mine.png"));
+//		ImageView iv = new ImageView(new Image("images/mine.png"));
 		ImageView iv = new ImageView(new Image("images/corona.jpg"));
 //		ImageView iv = new ImageView(new Image("images/mine.png"));
-		iv.setFitHeight(50);
-		iv.setFitWidth(50);
+		iv.setFitHeight(40);
+		iv.setFitWidth(40);
 		button.setGraphic(iv);
 		//add some other exit option?
 		gameOver.setText("GAME OVER: Try again?");
