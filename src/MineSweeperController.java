@@ -56,13 +56,13 @@ public class MineSweeperController {
 
 		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
 
-		for (int i = 0; i < game.getHeight(); i++) {
-			for (int j = 0; j < game.getWidth(); j++) {
+		for (int y = 0; y < game.getHeight(); y++) {
+			for (int x = 0; x < game.getWidth(); x++) {
 				Button btn = new Button("");
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
-				board.add(btn, i, j);
-				btn.setId(i + " . " + j);
+				board.add(btn, x, y);
+				btn.setId(x + " . " + y);
 				btn.setOnMouseClicked(e -> TileClicked(e));
 			
 			}
