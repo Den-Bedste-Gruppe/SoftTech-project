@@ -43,7 +43,7 @@ public class customGameController {
 			}
 			return;
 		}
-		MineSweeperController.setGame(new MineSweeperGame(savedHeight, savedWidth, savedBombs));
+		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
 		Scene game = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
