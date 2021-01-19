@@ -114,7 +114,7 @@ public class MineSweeperGame {
 	//for testing
 	public String toString() {
 		String s = "";
-		for(int y = height - 1; y >= 0; y--) {
+		for(int y = 0; y < width; y++) {
 			for(int x = 0; x < width; x++) {
 				if(board[x][y] instanceof SafeTile) {
 					s += board[x][y].getAdjBombs();
