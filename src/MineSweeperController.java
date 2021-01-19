@@ -141,7 +141,8 @@ public class MineSweeperController {
 	private void unmarkedTile(int x, int y) {
 		if(!(currTile instanceof SafeTile)) {
 //			ImageView iv = new ImageView(new Image("file:/C:/Users/Lucas/EclipseFiles/Test/src/FXMLtest/images/mine.png"));
-			ImageView iv = new ImageView(new Image("images/corona.jpg"));
+//			ImageView iv = new ImageView(new Image("images/corona.jpg"));
+			ImageView iv = new ImageView(new Image("images/oldMine.png"));
 //			ImageView iv = new ImageView(new Image("images/mine.png"));
 			iv.setFitHeight(50);
 			iv.setFitWidth(50);
