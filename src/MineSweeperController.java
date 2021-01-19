@@ -45,15 +45,16 @@ public class MineSweeperController {
 	public void initialize() {
 
 		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
+
 		btnArray = new Button[game.getHeight()][game.getWidth()];
-		for (int i = 0; i < game.getHeight(); i++) {
-			for (int j = 0; j < game.getWidth(); j++) {
+		for (int y = 0; y < game.getHeight(); y++) {
+			for (int x = 0; x < game.getWidth(); x++) {
 				Button btn = new Button("");
-				btnArray[i][j] = btn;
+				btnArray[x][y] = btn;
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
-				board.add(btn, i, j);
-				btn.setId(i + " . " + j);
+				board.add(btn, x, y);
+				btn.setId(x + " . " + y);
 				btn.setOnMouseClicked(e -> TileClicked(e));
 			}
 		}
@@ -69,10 +70,9 @@ public class MineSweeperController {
 		//getting cordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
-		coords[0] = Integer.parseInt(coordString[0]);
-		coords[1] = Integer.parseInt(coordString[1]);
-		int x = coords[0];
-		int y = coords[1];
+		int x = Integer.parseInt(coordString[0]);
+		int y = Integer.parseInt(coordString[1]);
+
 		Tile currTile = game.getTile(x, y);
 		Button btn = btnArray[x][y];
 		
