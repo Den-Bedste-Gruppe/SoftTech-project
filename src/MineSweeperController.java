@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -45,9 +47,7 @@ public class MineSweeperController {
 	private int tileMarker;
 
 	private Tile currTile;
-	private StackPane stackPane;
 	private Button button;
-	private Label flag ;
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
 	}
@@ -140,6 +140,12 @@ public class MineSweeperController {
 	
 	private void unmarkedTile(int x, int y) {
 		if(!(currTile instanceof SafeTile)) {
+//			ImageView iv = new ImageView(new Image("file:/C:/Users/Lucas/EclipseFiles/Test/src/FXMLtest/images/mine.png"));
+			ImageView iv = new ImageView(new Image("images/corona.jpg"));
+//			ImageView iv = new ImageView(new Image("images/mine.png"));
+			iv.setFitHeight(50);
+			iv.setFitWidth(50);
+			button.setGraphic(iv);
 			//add some other exit option?
 			gameOver.setText("GAME OVER: Try again?");
 			gameOver.setVisible(true);
