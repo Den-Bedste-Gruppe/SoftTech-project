@@ -5,21 +5,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+
 import javafx.stage.Stage;
 import javafx.scene.input.*;
 
@@ -107,11 +99,19 @@ public class MineSweeperController {
 			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
-				button.setText("F");
+				ImageView flag = new ImageView(new Image("images/flag.png"));
+				flag.setFitHeight(30);
+				flag.setFitWidth(30);
+				button.setGraphic(flag);
+//				button.setText("F");
 				break;
 			case 1:
 				game.incFlagCounter(-1);
-				button.setText("?");
+				ImageView qMark = new ImageView(new Image("images/qMark.png"));
+				qMark.setFitHeight(20);
+				qMark.setFitWidth(20);
+				button.setGraphic(qMark);
+//				button.setText("?");
 				break;
 			case 2:
 				button.setText("");
@@ -140,12 +140,12 @@ public class MineSweeperController {
 	
 	private void unmarkedTile(int x, int y) {
 		if(!(currTile instanceof SafeTile)) {
-//			ImageView iv = new ImageView(new Image("file:/C:/Users/Lucas/EclipseFiles/Test/src/FXMLtest/images/mine.png"));
+//			ImageView iv = new ImageView(new Image("images/flag.png"));
 //			ImageView iv = new ImageView(new Image("images/corona.jpg"));
 			ImageView iv = new ImageView(new Image("images/oldMine.png"));
 //			ImageView iv = new ImageView(new Image("images/mine.png"));
-			iv.setFitHeight(50);
-			iv.setFitWidth(50);
+			iv.setFitHeight(45);
+			iv.setFitWidth(45);
 			button.setGraphic(iv);
 			//add some other exit option?
 			gameOver.setText("GAME OVER: Try again?");
