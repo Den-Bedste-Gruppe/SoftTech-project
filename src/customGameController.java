@@ -23,19 +23,27 @@ public class customGameController {
 
 	
 	public void createCustomGame(ActionEvent event) throws IOException {
+		bombLabel.setVisible(false);
+		sizeLabel.setVisible(false);
 		savedHeight = Integer.parseInt(customHeight.getText());
 		savedWidth = Integer.parseInt(customWidth.getText());
 		savedBombs = Integer.parseInt(customBombs.getText());
 		if (savedBombs >= savedHeight*savedWidth) {
 			bombLabel.setVisible(true);
+			if (savedHeight <4 || savedWidth <4 || savedHeight>100 || savedWidth>100) {
+				sizeLabel.setVisible(true);
+			}
 			return;
 		}
 		
 		if (savedHeight <4 || savedWidth <4 || savedHeight>100 || savedWidth>100) {
 			sizeLabel.setVisible(true);
+			if(savedBombs>=savedHeight*savedWidth) {
+				bombLabel.setVisible(true);
+			}
 			return;
 		}
-		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
+		MineSweeperController.setGame(new MineSweeperGame(savedHeight, savedWidth, savedBombs));
 		Scene game = FXMLLoader.load(main.class.getResource("grid2.fxml"));
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
