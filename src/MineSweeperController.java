@@ -34,8 +34,6 @@ public class MineSweeperController {
 
 	private static MineSweeperGame game;
 	
-	private int[] coords = new int[2];
-	
 	private Button[][] btnArray;
 	
 	public static void setGame(MineSweeperGame mgame) {
