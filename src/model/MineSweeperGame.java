@@ -18,9 +18,9 @@ public class MineSweeperGame {
 		
 		board = new Tile[height][width];
 
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {
-				board[y][x] = new SafeTile();
+		for(int x = 0; x < height; x++) {
+			for(int y = 0; y < width; y++) {
+				board[x][y] = new SafeTile();
 				test.add(new int[]{x, y});
 			}
 		}
@@ -36,8 +36,8 @@ public class MineSweeperGame {
 	}
 	
 	public Tile getTile(int x, int y) {
-		if (x < 0 || x > width) return null;
-		if (y < 0 || y > height) return null;
+		if (x < 0 || x > height) return null;
+		if (y < 0 || y > width) return null;
 		return board[x][y];
 	}
 	

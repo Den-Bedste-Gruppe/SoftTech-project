@@ -173,7 +173,7 @@ public class MineSweeperController {
 			int dx = coords[0];
 			int dy = coords[1];
 			
-			if (dx < 0 || dx >= game.getWidth() || dy < 0 || dy >= game.getHeight()) {
+			if (dx < 0 || dx >= game.getHeight() || dy < 0 || dy >= game.getWidth()) {
 				continue;
 			} 
 
