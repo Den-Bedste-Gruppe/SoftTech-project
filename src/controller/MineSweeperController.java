@@ -1,3 +1,4 @@
+package controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import javafx.stage.Stage;
+import main.Main;
+import model.MineSweeperGame;
+import model.SafeTile;
+import model.Tile;
 import javafx.scene.input.*;
 
 public class MineSweeperController {
@@ -93,14 +98,14 @@ public class MineSweeperController {
 			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
-				ImageView flag = new ImageView(new Image("images/flag.png"));
+				ImageView flag = new ImageView(new Image("public/images/flag.png"));
 				flag.setFitHeight(30);
 				flag.setFitWidth(30);
 				button.setGraphic(flag);
 				break;
 			case 1:
 				game.incFlagCounter(-1);
-				ImageView qMark = new ImageView(new Image("images/qMark.png"));
+				ImageView qMark = new ImageView(new Image("public/images/qMark.png"));
 				qMark.setFitHeight(20);
 				qMark.setFitWidth(20);
 				button.setGraphic(qMark);
@@ -205,7 +210,7 @@ public class MineSweeperController {
 	}
 	
 	public void gameOver(Button button) {
-		ImageView iv = new ImageView(new Image("images/oldMine.png"));
+		ImageView iv = new ImageView(new Image("public/images/oldMine.png"));
 //		ImageView iv = new ImageView(new Image("images/corona.jpg"));
 //		ImageView iv = new ImageView(new Image("images/mine.png"));
 		iv.setFitHeight(40);
@@ -223,7 +228,7 @@ public class MineSweeperController {
 	}
 
 	public void newGame (ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("views/menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
 		
 		Stage stage = (Stage) board.getScene().getWindow();
 		stage.setScene(tableViewScene);

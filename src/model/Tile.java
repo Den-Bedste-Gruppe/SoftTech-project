@@ -1,3 +1,4 @@
+package model;
 public class Tile {
 	private int marker = 0;
 	private boolean shown;
