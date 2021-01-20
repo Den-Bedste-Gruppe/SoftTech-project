@@ -6,14 +6,12 @@ public class MineSweeperGame {
 	private int height, width, flagCounter, numOfBombs, rounds, fieldsToWin;
 	private Random rand = new Random();
 	
-	
-	
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
 		this.width = width;
-		System.out.println(height+" "+width);
+		System.out.println(height + " " + width);
 		this.numOfBombs = numOfBombs;
-		fieldsToWin = height*width - numOfBombs;
+		fieldsToWin = height * width - numOfBombs;
 		
 		board = new Tile[height][width];
 
@@ -27,11 +25,11 @@ public class MineSweeperGame {
 	public void showTile(Tile tile){
 		tile.setShown();
 		fieldsToWin--;
-		if(fieldsToWin==0) {
+		if(fieldsToWin == 0) {
 			won = true;
 			done = true;
 		}
-	};
+	}
 	
 	public Tile getTile(int x, int y) {
 		return board[x][y];
@@ -72,7 +70,6 @@ public class MineSweeperGame {
 		return won;
 	}
 	
-	
 	private void incNeighbours(int x, int y) {
 		int tempX, tempY;
 		for(int i = -1; i <= 1; i++) {
@@ -97,7 +94,6 @@ public class MineSweeperGame {
 			x = rand.nextInt(height);
 			y = rand.nextInt(width);
 			currTile = board[x][y];
-			// Should it not be (x == startX && y == startY)
 			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
 				board[x][y] = new Tile();
 				bombsPlaced++;

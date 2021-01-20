@@ -1,4 +1,3 @@
-
 public class SafeTile extends Tile {
 	private int adjBombs;
 	
