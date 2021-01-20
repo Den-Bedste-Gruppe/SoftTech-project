@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.BombTile;
-
 public class MineSweeperGame {
 	private boolean done, won;
 	private Tile[][] board;
@@ -13,9 +11,9 @@ public class MineSweeperGame {
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
 		this.width = width;
-		System.out.println(height+" "+width);
+		System.out.println(height + " " + width);
 		this.numOfBombs = numOfBombs;
-		fieldsToWin = height*width - numOfBombs;
+		fieldsToWin = height * width - numOfBombs;
 		
 		board = new Tile[height][width];
 
@@ -30,13 +28,15 @@ public class MineSweeperGame {
 	public void showTile(Tile tile){
 		tile.setShown();
 		fieldsToWin--;
-		if(fieldsToWin==0) {
+		if(fieldsToWin == 0) {
 			won = true;
 			done = true;
 		}
-	};
+	}
 	
 	public Tile getTile(int x, int y) {
+		if (x < 0 || x > width) return null;
+		if (y < 0 || y > height) return null;
 		return board[x][y];
 	}
 	
@@ -75,7 +75,6 @@ public class MineSweeperGame {
 		return won;
 	}
 	
-	
 	private void incNeighbours(int x, int y) {
 		int tempX, tempY;
 		for(int i = -1; i <= 1; i++) {
@@ -99,8 +98,8 @@ public class MineSweeperGame {
 			int x = cords[0];
 			int y = cords[1];
 			
-			board[x][y] = new BombTile();
-			incrementNeighbor(x, y);
+//			board[x][y] = new BombTile();
+//			incrementNeighbor(x, y);
 			
 			test.remove(ranIndex);
 		}

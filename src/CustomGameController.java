@@ -9,10 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class customGameController {
+public class CustomGameController {
 
 	@FXML
 	private TextField customHeight, customWidth, customBombs;
+	
 	@FXML
 	private Label bombLabel, sizeLabel;
 	
@@ -28,27 +29,27 @@ public class customGameController {
 		savedHeight = Integer.parseInt(customHeight.getText());
 		savedWidth = Integer.parseInt(customWidth.getText());
 		savedBombs = Integer.parseInt(customBombs.getText());
-		if (savedBombs >= savedHeight*savedWidth) {
+		if (savedBombs >= savedHeight * savedWidth) {
 			bombLabel.setVisible(true);
-			if (savedHeight <4 || savedWidth <4 || savedHeight>100 || savedWidth>100) {
+			if (savedHeight < 4 || savedWidth < 4 || savedHeight > 100 || savedWidth > 100) {
 				sizeLabel.setVisible(true);
 			}
 			return;
 		}
 		
-		if (savedHeight <4 || savedWidth <4 || savedHeight>100 || savedWidth>100) {
+		if (savedHeight < 4 || savedWidth < 4 || savedHeight > 100 || savedWidth > 100) {
 			sizeLabel.setVisible(true);
-			if(savedBombs>=savedHeight*savedWidth) {
+			if(savedBombs >= savedHeight * savedWidth) {
 				bombLabel.setVisible(true);
 			}
 			return;
 		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
-		Scene game = FXMLLoader.load(main.class.getResource("grid2.fxml"));
+		Scene game = FXMLLoader.load(Main.class.getResource("views/standardGame.fxml"));
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
-		stage.getScene().getStylesheets().add("buttonStyle.css");
+		stage.getScene().getStylesheets().add("css/buttonStyle.css");
 
 		stage.setHeight(600);
 		stage.setWidth(800);
@@ -58,13 +59,13 @@ public class customGameController {
 	}
 
 	public void menu(ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(main.class.getResource("menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("views/menu.fxml"));
 
 		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(tableViewScene);
-		stage.setHeight(500);
-		stage.setWidth(700);
-		// stage.getScene().getStylesheets().add("buttonStyle.css");
+		stage.setHeight(600);
+		stage.setWidth(800);
+		// stage.getScene().getStylesheets().add("css/buttonStyle.css.css");
 		stage.show();
 	}
 

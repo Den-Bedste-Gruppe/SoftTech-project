@@ -1,6 +1,8 @@
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,16 +35,13 @@ public class MineSweeperController {
 	private URL location;
 
 	private static MineSweeperGame game;
-	
 	private Button[][] btnArray;
-	
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
 	}
 
 	public void initialize() {
-
-		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
+		bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
 
 		btnArray = new Button[game.getHeight()][game.getWidth()];
 		for (int x = 0; x < game.getHeight(); x++) {
@@ -98,7 +97,6 @@ public class MineSweeperController {
 				flag.setFitHeight(30);
 				flag.setFitWidth(30);
 				button.setGraphic(flag);
-//				button.setText("F");
 				break;
 			case 1:
 				game.incFlagCounter(-1);
@@ -106,11 +104,9 @@ public class MineSweeperController {
 				qMark.setFitHeight(20);
 				qMark.setFitWidth(20);
 				button.setGraphic(qMark);
-//				button.setText("?");
 				break;
 			case 2:
 				button.setGraphic(null);
-				//button.setText("");
 				break;
 			}
 			bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
@@ -121,7 +117,7 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			unmarkedTile(x, y);
+			zeroSolver(x, y);
 			return;
 		case 1:
 			flaggedTile();
@@ -130,7 +126,6 @@ public class MineSweeperController {
 			questionTile();
 			return;
 		}
-		
 	}
 	
 	
@@ -144,53 +139,61 @@ public class MineSweeperController {
 		}
 
 		if(game.isWon()) {
-			System.out.println("you won!");
-			gameOver.setText("WINNER WINNER CHICKEN DINNER: Want to try again?");
+			System.out.println("You won!");
+			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
-			//close();
 		}
-		
-		if(currTile.getAdjBombs()==0) {
-			zeroSolver(x, y);
-		}
-		
 	}
 	
 	private void revealTile(Tile currTile, Button btn) {
-		game.showTile(currTile);
-		btn.getStyleClass().add("bombs-"+currTile.getAdjBombs());
-		btn.getStyleClass().add("shown");
-		if (currTile.getAdjBombs() != 0) {
-			btn.setText("" + currTile.getAdjBombs());	
-		}
-		
-		
-		
-	}
-	
-	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
-	//er hoved metode som står for det meste når man klikker på et felt som ikke er vist
-	
-	private void zeroSolver(int x, int y) {
-		Tile currTile = game.getTile(x, y);
-		int tempX, tempY;
-		for(int i = -1; i <= 1; i++) {
-			tempY = y + i;
-			if(tempY >= 0 && tempY < game.getWidth()) {
-				for(int j = -1; j <= 1; j++) {
-					tempX = x + j;
-					if(tempX >= 0 && tempX < game.getHeight()) {
-						currTile = game.getTile(tempX, tempY);
-						if(!currTile.isShown() && !(currTile.getMarker()==1)) {
-							unmarkedTile(tempX, tempY);
-						}
-					}
-				}
+		if (currTile != null && btn != null) {
+			game.showTile(currTile);
+			btn.getStyleClass().add("bombs-" + currTile.getAdjBombs());
+			btn.getStyleClass().add("shown");
+			if (currTile.getAdjBombs() != 0) {
+				btn.setText("" + currTile.getAdjBombs());	
 			}
 		}
 	}
 	
-	
+	private void zeroSolver(int x, int y) {
+		// Create stack
+		Stack<int[]> stack = new Stack<>();
+		stack.add(new int[]{x, y});
+		
+
+		while (!stack.empty() && !game.isDone()) {
+			int[] coords = stack.pop();
+			
+			int dx = coords[0];
+			int dy = coords[1];
+			
+			if (dx < 0 || dx >= game.getWidth() || dy < 0 || dy >= game.getHeight()) {
+				continue;
+			} 
+
+			Tile currTile = game.getTile(dx, dy);
+			
+			if (currTile.isShown()) {
+				continue;
+			}
+
+			unmarkedTile(dx, dy);
+					
+			if(currTile.getAdjBombs() == 0 && currTile != null) {
+
+				int[][] checkbox = {
+						{dx-1, dy+1}, {dx, dy+1}, {dx+1, dy+1},
+						{dx-1, dy}, {dx+1, dy},
+						{dx-1, dy-1}, {dx , dy-1}, {dx+1, dy-1}
+				};
+
+				for (int i = 0; i < checkbox.length; i++) {
+					stack.push(new int[]{checkbox[i][0], checkbox[i][1]});
+				}
+			}
+		}
+	}
 	
 	private void flaggedTile() {
 		return;
@@ -202,19 +205,16 @@ public class MineSweeperController {
 	}
 	
 	public void gameOver(Button button) {
-//		ImageView iv = new ImageView(new Image("images/mine.png"));
-		ImageView iv = new ImageView(new Image("images/corona.jpg"));
+		ImageView iv = new ImageView(new Image("images/oldMine.png"));
+//		ImageView iv = new ImageView(new Image("images/corona.jpg"));
 //		ImageView iv = new ImageView(new Image("images/mine.png"));
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
 		button.setGraphic(iv);
-		//add some other exit option?
 		gameOver.setText("GAME OVER: Try again?");
 		gameOver.setVisible(true);
 		game.setDone();
-		//close();
 	}
-	
 	
 	public void close() {
 		System.out.println("Closed!");
@@ -223,15 +223,14 @@ public class MineSweeperController {
 	}
 
 	public void newGame (ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(main.class.getResource("menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("views/menu.fxml"));
 		
 		Stage stage = (Stage) board.getScene().getWindow();
 		stage.setScene(tableViewScene);
 		//stage.getScene().getStylesheets().add("buttonStyle.css");
-		stage.setHeight(500);
-		stage.setWidth(700);
+		stage.setHeight(600);
+		stage.setWidth(800);
+		stage.setMaximized(false);
 		stage.show();
 	}
-	
-	
 }
