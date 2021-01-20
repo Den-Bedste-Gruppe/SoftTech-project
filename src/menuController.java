@@ -65,6 +65,8 @@ public class menuController {
 		
 		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(game);
+		stage.setWidth(800);
+		stage.setHeight(700);
 		stage.show();
 		
 	}
