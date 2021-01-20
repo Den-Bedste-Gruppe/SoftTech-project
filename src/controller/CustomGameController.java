@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.Main;
@@ -21,11 +22,33 @@ public class CustomGameController {
 	private Label bombLabel, sizeLabel;
 	
 	@FXML
+	private RadioButton classic, corona;
+	
+	@FXML
 	private Scene customScene;
 
 	private int savedHeight, savedWidth, savedBombs;
-
+	private String selectedTheme = "classic";
 	
+	public void initialize() {
+		switch (selectedTheme) {
+		case "classic": 
+			classic.setSelected(true);
+			break;
+		
+		case "corona": 
+			corona.setSelected(true);
+			break;
+		
+		}
+		
+	}
+
+	public void themeSelecter(ActionEvent e) {
+		System.out.println(e);
+		selectedTheme = "" + ((RadioButton) e.getSource()).getId();
+
+	}
 	public void createCustomGame(ActionEvent event) throws IOException {
 		bombLabel.setVisible(false);
 		sizeLabel.setVisible(false);
@@ -48,8 +71,9 @@ public class CustomGameController {
 			return;
 		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
+		MineSweeperController.setTheme(selectedTheme);
 		Scene game = FXMLLoader.load(Main.class.getResource("../views/standardGame.fxml"));
-
+	
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/buttonStyle.css");
