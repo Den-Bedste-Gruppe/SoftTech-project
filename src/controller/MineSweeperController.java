@@ -83,13 +83,15 @@ public class MineSweeperController {
 		}
 
 		
-		//in case the tile is already revealed
-		if(currTile.isShown()) {
-			return;
-			//add code for the autosolving related to flags, ie check if flags in area = num of adj bombs, then clear
-		}
+
 		
 		game.incRounds();
+		
+		//in case the tile is already revealed
+		if(currTile.isShown()) {
+			flagSolver(x,y);
+			return;
+		}
 		
 		int tileMarker = currTile.getMarker();
 		//for changing markers
@@ -122,7 +124,7 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			zeroSolver(x, y);
+			unmarkedTile(x,y,false);
 			return;
 		case 1:
 			flaggedTile();
@@ -133,8 +135,44 @@ public class MineSweeperController {
 		}
 	}
 	
+	private void flagSolver(int x, int y) {
+		int flagsNear = 0;
+		int tempX, tempY;
+		Tile tempTile;
+		for(int i = -1; i <= 1; i++) {
+			tempY = y + i;
+			for(int j = -1; j <= 1; j++) {
+				tempX = x + j;
+				if(!(tempX==x && tempY==y)) {
+					tempTile = game.getTile(tempX, tempY);
+					if(!(tempTile==null) && tempTile.getMarker()==1) {
+						flagsNear++;
+					}
+				}
+			}
+		}
+		
+		if(flagsNear == game.getTile(x, y).getAdjBombs()) {
+			for(int i = -1; i <= 1; i++) {
+				tempY = y + i;
+				for(int j = -1; j <= 1; j++) {
+					tempX = x + j;
+					if(!(tempX==x && tempY==y)) {
+						tempTile = game.getTile(tempX, tempY);
+						if(!(tempTile==null) && !(tempTile.getMarker()==1)) {
+							unmarkedTile(tempX, tempY, false);
+						}
+					}
+				}
+			}
+		}
+	}
 	
-	private void unmarkedTile(int x, int y) {
+	private void unmarkedTile(int x, int y, boolean solving) {
+		if(!solving) {
+			zeroSolver(x,y);
+			return;
+		}
 		Tile currTile = game.getTile(x, y);
 		Button currBtn = btnArray[x][y];
 		revealTile(currTile, currBtn);
@@ -148,6 +186,8 @@ public class MineSweeperController {
 			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
 		}
+		
+
 	}
 	
 	private void revealTile(Tile currTile, Button btn) {
@@ -183,7 +223,7 @@ public class MineSweeperController {
 				continue;
 			}
 
-			unmarkedTile(dx, dy);
+			unmarkedTile(dx, dy, true);
 					
 			if(currTile.getAdjBombs() == 0 && currTile != null) {
 
