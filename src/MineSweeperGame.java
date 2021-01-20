@@ -91,35 +91,35 @@ public class MineSweeperGame {
 	}
 	
 	public void placeBombs(int startX, int startY) {
-		for (int i = 0; i < numOfBombs; i++) {
-			int ranIndex = new Random().nextInt(test.size());
-			
-			int[] cords = test.get(ranIndex);
-			int x = cords[0];
-			int y = cords[1];
-			
-//			board[x][y] = new BombTile();
-//			incrementNeighbor(x, y);
-			
-			test.remove(ranIndex);
-		}
-//		int bombsPlaced = 0;
-//		int x, y;
-//		Tile currTile;
-//		System.out.println(startX+"-"+startY);
-//		while(bombsPlaced < numOfBombs) {
-//			x = rand.nextInt(height);
-//			y = rand.nextInt(width);
-//			currTile = board[x][y];
-//			// Should it not be (x == startX && y == startY)
-//			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
-//				board[x][y] = new Tile();
-//				bombsPlaced++;
-//				incNeighbours(x, y);
-//
-//			}
+//		for (int i = 0; i < numOfBombs; i++) {
+//			int ranIndex = new Random().nextInt(test.size());
+//			
+//			int[] cords = test.get(ranIndex);
+//			int x = cords[0];
+//			int y = cords[1];
+//			
+////			board[x][y] = new BombTile();
+////			incrementNeighbor(x, y);
+//			
+//			test.remove(ranIndex);
 //		}
-//		System.out.println("Bombs placed");
+		int bombsPlaced = 0;
+		int x, y;
+		Tile currTile;
+		System.out.println(startX+"-"+startY);
+		while(bombsPlaced < numOfBombs) {
+			x = rand.nextInt(height);
+			y = rand.nextInt(width);
+			currTile = board[x][y];
+			// Should it not be (x == startX && y == startY)
+			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
+				board[x][y] = new Tile();
+				bombsPlaced++;
+				incNeighbours(x, y);
+
+			}
+		}
+		System.out.println("Bombs placed");
 	}
 	
 	public void incFlagCounter(int upOrNot) {
