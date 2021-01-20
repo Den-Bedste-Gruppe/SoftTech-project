@@ -12,7 +12,6 @@ public class MineSweeperGame {
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
 		this.width = width;
-		System.out.println(height + " " + width);
 		this.numOfBombs = numOfBombs;
 		fieldsToWin = height * width - numOfBombs;
 		
@@ -36,8 +35,8 @@ public class MineSweeperGame {
 	}
 	
 	public Tile getTile(int x, int y) {
-		if (x < 0 || x > height) return null;
-		if (y < 0 || y > width) return null;
+		if (x < 0 || x >= height) return null;
+		if (y < 0 || y >= width) return null;
 		return board[x][y];
 	}
 	
