@@ -15,13 +15,16 @@ public class MenuController {
 
 	public void createEasyGame (ActionEvent event) throws IOException {
 
-		MineSweeperController.setGame(new MineSweeperGame(6,6, 5));
+		MineSweeperController.setGame(new MineSweeperGame(6, 6, 5));
 
 		Scene game = FXMLLoader.load(Main.class.getResource("views/standardGame.fxml"));
 		
-		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("css/buttonStyle.css");
+		stage.setHeight(600);
+		stage.setWidth(800);
 		stage.show();
 	}
 	
@@ -33,13 +36,14 @@ public class MenuController {
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("css/buttonStyle.css");
 		
-//		stage.setHeight(700);
-//		stage.setWidth(700);
+		stage.setHeight(600);
+		stage.setWidth(800);
+
 		stage.show();
 	}
 	
 	public void createHardGame (ActionEvent event) throws IOException {
-		MineSweeperController.setGame(new MineSweeperGame(30,30, 100));
+		MineSweeperController.setGame(new MineSweeperGame(30, 30, 100));
 		Scene game = FXMLLoader.load(Main.class.getResource("views/standardGame.fxml"));
 		
 		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -57,6 +61,8 @@ public class MenuController {
 		
 		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(game);
+		stage.setHeight(600);
+		stage.setWidth(800);
 		stage.show();
 		
 	}

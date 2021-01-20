@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,7 +117,7 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			unmarkedTile(x, y);
+			zeroSolver(x, y);
 			return;
 		case 1:
 			flaggedTile();
@@ -142,38 +143,53 @@ public class MineSweeperController {
 			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
 		}
-		
-		if(currTile.getAdjBombs() == 0) {
-			zeroSolver(x, y);
-		}
 	}
 	
 	private void revealTile(Tile currTile, Button btn) {
-		game.showTile(currTile);
-		btn.getStyleClass().add("bombs-" + currTile.getAdjBombs());
-		btn.getStyleClass().add("shown");
-		if (currTile.getAdjBombs() != 0) {
-			btn.setText("" + currTile.getAdjBombs());	
+		if (currTile != null && btn != null) {
+			game.showTile(currTile);
+			btn.getStyleClass().add("bombs-" + currTile.getAdjBombs());
+			btn.getStyleClass().add("shown");
+			if (currTile.getAdjBombs() != 0) {
+				btn.setText("" + currTile.getAdjBombs());	
+			}
 		}
 	}
 	
-	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
-	//er hoved metode som står for det meste når man klikker på et felt som ikke er vist
-	
 	private void zeroSolver(int x, int y) {
-		Tile currTile = game.getTile(x, y);
-		int tempX, tempY;
-		for(int i = -1; i <= 1; i++) {
-			tempY = y + i;
-			if(tempY >= 0 && tempY < game.getWidth()) {
-				for(int j = -1; j <= 1; j++) {
-					tempX = x + j;
-					if(tempX >= 0 && tempX < game.getHeight()) {
-						currTile = game.getTile(tempX, tempY);
-						if(!currTile.isShown() && !(currTile.getMarker() == 1)) {
-							unmarkedTile(tempX, tempY);
-						}
-					}
+		// Create stack
+		Stack<int[]> stack = new Stack<>();
+		stack.add(new int[]{x, y});
+		
+
+		while (!stack.empty() && !game.isDone()) {
+			int[] coords = stack.pop();
+			
+			int dx = coords[0];
+			int dy = coords[1];
+			
+			if (dx < 0 || dx >= game.getWidth() || dy < 0 || dy >= game.getHeight()) {
+				continue;
+			} 
+
+			Tile currTile = game.getTile(dx, dy);
+			
+			if (currTile.isShown()) {
+				continue;
+			}
+
+			unmarkedTile(dx, dy);
+					
+			if(currTile.getAdjBombs() == 0 && currTile != null) {
+
+				int[][] checkbox = {
+						{dx-1, dy+1}, {dx, dy+1}, {dx+1, dy+1},
+						{dx-1, dy}, {dx+1, dy},
+						{dx-1, dy-1}, {dx , dy-1}, {dx+1, dy-1}
+				};
+
+				for (int i = 0; i < checkbox.length; i++) {
+					stack.push(new int[]{checkbox[i][0], checkbox[i][1]});
 				}
 			}
 		}
@@ -212,8 +228,9 @@ public class MineSweeperController {
 		Stage stage = (Stage) board.getScene().getWindow();
 		stage.setScene(tableViewScene);
 		//stage.getScene().getStylesheets().add("buttonStyle.css");
-		stage.setHeight(500);
-		stage.setWidth(700);
+		stage.setHeight(600);
+		stage.setWidth(800);
+		stage.setMaximized(false);
 		stage.show();
 	}
 }
