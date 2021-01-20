@@ -1,3 +1,4 @@
+package controller;
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
@@ -8,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Main;
+import model.MineSweeperGame;
 
 public class CustomGameController {
 
@@ -45,11 +48,11 @@ public class CustomGameController {
 			return;
 		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
-		Scene game = FXMLLoader.load(Main.class.getResource("views/standardGame.fxml"));
+		Scene game = FXMLLoader.load(Main.class.getResource("../views/standardGame.fxml"));
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
-		stage.getScene().getStylesheets().add("css/buttonStyle.css");
+		stage.getScene().getStylesheets().add("public/css/buttonStyle.css");
 
 		stage.setHeight(600);
 		stage.setWidth(800);
@@ -59,13 +62,13 @@ public class CustomGameController {
 	}
 
 	public void menu(ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("views/menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
 
 		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(tableViewScene);
 		stage.setHeight(600);
 		stage.setWidth(800);
-		// stage.getScene().getStylesheets().add("css/buttonStyle.css.css");
+		// stage.getScene().getStylesheets().add("public/css/buttonStyle.css.css");
 		stage.show();
 	}
 

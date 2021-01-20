@@ -1,3 +1,4 @@
+package model;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,9 +18,9 @@ public class MineSweeperGame {
 		
 		board = new Tile[height][width];
 
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {
-				board[y][x] = new SafeTile();
+		for(int x = 0; x < height; x++) {
+			for(int y = 0; y < width; y++) {
+				board[x][y] = new SafeTile();
 				test.add(new int[]{x, y});
 			}
 		}
@@ -35,8 +36,8 @@ public class MineSweeperGame {
 	}
 	
 	public Tile getTile(int x, int y) {
-		if (x < 0 || x > width) return null;
-		if (y < 0 || y > height) return null;
+		if (x < 0 || x > height) return null;
+		if (y < 0 || y > width) return null;
 		return board[x][y];
 	}
 	
@@ -91,35 +92,24 @@ public class MineSweeperGame {
 	}
 	
 	public void placeBombs(int startX, int startY) {
-//		for (int i = 0; i < numOfBombs; i++) {
-//			int ranIndex = new Random().nextInt(test.size());
-//			
-//			int[] cords = test.get(ranIndex);
-//			int x = cords[0];
-//			int y = cords[1];
-//			
-////			board[x][y] = new BombTile();
-////			incrementNeighbor(x, y);
-//			
-//			test.remove(ranIndex);
-//		}
-		int bombsPlaced = 0;
-		int x, y;
-		Tile currTile;
-		System.out.println(startX+"-"+startY);
-		while(bombsPlaced < numOfBombs) {
-			x = rand.nextInt(height);
-			y = rand.nextInt(width);
-			currTile = board[x][y];
-			// Should it not be (x == startX && y == startY)
-			if(!(x == startX && y == startY) && (currTile instanceof SafeTile)) { 
-				board[x][y] = new Tile();
-				bombsPlaced++;
-				incNeighbours(x, y);
-
+		for (int i = 0; i < numOfBombs; i++) {
+			int ranIndex = new Random().nextInt(test.size());
+			
+			int[] cords = test.get(ranIndex);
+			int x = cords[0];
+			int y = cords[1];
+			
+			if (x == startX && y == startY) {
+				i--;
+				test.remove(ranIndex);
+				continue;
 			}
+			
+			board[x][y] = new BombTile();
+			incNeighbours(x, y);
+			
+			test.remove(ranIndex);
 		}
-		System.out.println("Bombs placed");
 	}
 	
 	public void incFlagCounter(int upOrNot) {
