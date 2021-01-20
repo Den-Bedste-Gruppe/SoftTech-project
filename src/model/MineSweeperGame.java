@@ -101,6 +101,7 @@ public class MineSweeperGame {
 			
 			if (x == startX && y == startY) {
 				i--;
+				test.remove(ranIndex);
 				continue;
 			}
 			
