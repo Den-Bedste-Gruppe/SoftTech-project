@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class main extends Application {
+public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -14,13 +14,11 @@ public class main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		primaryStage.setTitle("MineSweeper Game");
 		//MineSweeperController.setGame(new MineSweeperGame(10,10, 10));
-		Scene game = FXMLLoader.load(main.class.getResource("menu.fxml"));
+		Scene game = FXMLLoader.load(Main.class.getResource("views/menu.fxml"));
 		primaryStage.setScene(game);
-	//	primaryStage.getScene().getStylesheets().add("buttonStyle.css");
+	//	primaryStage.getScene().getStylesheets().add("css/buttonStyle.css.css");
 		primaryStage.setHeight(500);
 		primaryStage.setWidth(700);
 		primaryStage.show();
-		
-		
 	}
 }

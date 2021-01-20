@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,16 +34,13 @@ public class MineSweeperController {
 	private URL location;
 
 	private static MineSweeperGame game;
-	
 	private Button[][] btnArray;
-	
 	public static void setGame(MineSweeperGame mgame) {
 		game = mgame;
 	}
 
 	public void initialize() {
-
-		bombLabel.setText("Flag: "+game.getFlagCounter() + "/" + game.getNumOfBombs());
+		bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
 
 		btnArray = new Button[game.getHeight()][game.getWidth()];
 		for (int x = 0; x < game.getHeight(); x++) {
@@ -98,7 +96,6 @@ public class MineSweeperController {
 				flag.setFitHeight(30);
 				flag.setFitWidth(30);
 				button.setGraphic(flag);
-//				button.setText("F");
 				break;
 			case 1:
 				game.incFlagCounter(-1);
@@ -106,11 +103,9 @@ public class MineSweeperController {
 				qMark.setFitHeight(20);
 				qMark.setFitWidth(20);
 				button.setGraphic(qMark);
-//				button.setText("?");
 				break;
 			case 2:
 				button.setGraphic(null);
-				//button.setText("");
 				break;
 			}
 			bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
@@ -130,7 +125,6 @@ public class MineSweeperController {
 			questionTile();
 			return;
 		}
-		
 	}
 	
 	
@@ -144,28 +138,23 @@ public class MineSweeperController {
 		}
 
 		if(game.isWon()) {
-			System.out.println("you won!");
-			gameOver.setText("WINNER WINNER CHICKEN DINNER: Want to try again?");
+			System.out.println("You won!");
+			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
-			//close();
 		}
 		
-		if(currTile.getAdjBombs()==0) {
+		if(currTile.getAdjBombs() == 0) {
 			zeroSolver(x, y);
 		}
-		
 	}
 	
 	private void revealTile(Tile currTile, Button btn) {
 		game.showTile(currTile);
-		btn.getStyleClass().add("bombs-"+currTile.getAdjBombs());
+		btn.getStyleClass().add("bombs-" + currTile.getAdjBombs());
 		btn.getStyleClass().add("shown");
 		if (currTile.getAdjBombs() != 0) {
 			btn.setText("" + currTile.getAdjBombs());	
 		}
-		
-		
-		
 	}
 	
 	//super grimt loop ja, men tror det er nødvendigt, det er den rekursive solver
@@ -181,7 +170,7 @@ public class MineSweeperController {
 					tempX = x + j;
 					if(tempX >= 0 && tempX < game.getHeight()) {
 						currTile = game.getTile(tempX, tempY);
-						if(!currTile.isShown() && !(currTile.getMarker()==1)) {
+						if(!currTile.isShown() && !(currTile.getMarker() == 1)) {
 							unmarkedTile(tempX, tempY);
 						}
 					}
@@ -189,8 +178,6 @@ public class MineSweeperController {
 			}
 		}
 	}
-	
-	
 	
 	private void flaggedTile() {
 		return;
@@ -202,19 +189,16 @@ public class MineSweeperController {
 	}
 	
 	public void gameOver(Button button) {
-//		ImageView iv = new ImageView(new Image("images/mine.png"));
-		ImageView iv = new ImageView(new Image("images/corona.jpg"));
+		ImageView iv = new ImageView(new Image("images/oldMine.png"));
+//		ImageView iv = new ImageView(new Image("images/corona.jpg"));
 //		ImageView iv = new ImageView(new Image("images/mine.png"));
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
 		button.setGraphic(iv);
-		//add some other exit option?
 		gameOver.setText("GAME OVER: Try again?");
 		gameOver.setVisible(true);
 		game.setDone();
-		//close();
 	}
-	
 	
 	public void close() {
 		System.out.println("Closed!");
@@ -223,7 +207,7 @@ public class MineSweeperController {
 	}
 
 	public void newGame (ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(main.class.getResource("menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("views/menu.fxml"));
 		
 		Stage stage = (Stage) board.getScene().getWindow();
 		stage.setScene(tableViewScene);
@@ -232,6 +216,4 @@ public class MineSweeperController {
 		stage.setWidth(700);
 		stage.show();
 	}
-	
-	
 }
