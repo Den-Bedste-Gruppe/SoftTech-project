@@ -83,13 +83,15 @@ public class MineSweeperController {
 		}
 
 		
-		//in case the tile is already revealed
-		if(currTile.isShown()) {
-			return;
-			//add code for the autosolving related to flags, ie check if flags in area = num of adj bombs, then clear
-		}
+
 		
 		game.incRounds();
+		
+		//in case the tile is already revealed
+		if(currTile.isShown()) {
+			flagSolver(x,y);
+			return;
+		}
 		
 		int tileMarker = currTile.getMarker();
 		//for changing markers
@@ -134,7 +136,36 @@ public class MineSweeperController {
 	}
 	
 	private void flagSolver(int x, int y) {
-		return;
+		int flagsNear = 0;
+		int tempX, tempY;
+		Tile tempTile;
+		for(int i = -1; i <= 1; i++) {
+			tempY = y + i;
+			for(int j = -1; j <= 1; j++) {
+				tempX = x + j;
+				if(!(tempX==x && tempY==y)) {
+					tempTile = game.getTile(tempX, tempY);
+					if(!(tempTile==null) && tempTile.getMarker()==1) {
+						flagsNear++;
+					}
+				}
+			}
+		}
+		
+		if(flagsNear == game.getTile(x, y).getAdjBombs()) {
+			for(int i = -1; i <= 1; i++) {
+				tempY = y + i;
+				for(int j = -1; j <= 1; j++) {
+					tempX = x + j;
+					if(!(tempX==x && tempY==y)) {
+						tempTile = game.getTile(tempX, tempY);
+						if(!(tempTile==null) && !(tempTile.getMarker()==1)) {
+							unmarkedTile(tempX, tempY, false);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private void unmarkedTile(int x, int y, boolean solving) {
