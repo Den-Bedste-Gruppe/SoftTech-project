@@ -63,8 +63,8 @@ public class CustomGameController {
 
 		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(tableViewScene);
-		stage.setHeight(500);
-		stage.setWidth(700);
+		stage.setHeight(600);
+		stage.setWidth(800);
 		// stage.getScene().getStylesheets().add("css/buttonStyle.css.css");
 		stage.show();
 	}
