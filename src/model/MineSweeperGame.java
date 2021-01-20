@@ -12,7 +12,6 @@ public class MineSweeperGame {
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
 		this.width = width;
-		System.out.println(height + " " + width);
 		this.numOfBombs = numOfBombs;
 		fieldsToWin = height * width - numOfBombs;
 		

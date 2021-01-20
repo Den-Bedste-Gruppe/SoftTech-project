@@ -122,7 +122,7 @@ public class MineSweeperController {
 		//Different actions depending on if there is flag or questionmark
 		switch(tileMarker) {
 		case 0:
-			zeroSolver(x, y);
+			unmarkedTile(x,y,false);
 			return;
 		case 1:
 			flaggedTile();
@@ -133,8 +133,15 @@ public class MineSweeperController {
 		}
 	}
 	
+	private void flagSolver(int x, int y) {
+		return;
+	}
 	
-	private void unmarkedTile(int x, int y) {
+	private void unmarkedTile(int x, int y, boolean solving) {
+		if(!solving) {
+			zeroSolver(x,y);
+			return;
+		}
 		Tile currTile = game.getTile(x, y);
 		Button currBtn = btnArray[x][y];
 		revealTile(currTile, currBtn);
@@ -148,6 +155,8 @@ public class MineSweeperController {
 			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
 		}
+		
+
 	}
 	
 	private void revealTile(Tile currTile, Button btn) {
@@ -183,7 +192,7 @@ public class MineSweeperController {
 				continue;
 			}
 
-			unmarkedTile(dx, dy);
+			unmarkedTile(dx, dy, true);
 					
 			if(currTile.getAdjBombs() == 0 && currTile != null) {
 
