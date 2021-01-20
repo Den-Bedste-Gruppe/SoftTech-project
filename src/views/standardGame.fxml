@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Scene stylesheets="@cssFiler/test.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MineSweeperController">
+<Scene xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MineSweeperController">
    <root>
       <BorderPane>
          <center>

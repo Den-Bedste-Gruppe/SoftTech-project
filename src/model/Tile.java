@@ -1,8 +1,7 @@
-
+package model;
 public class Tile {
 	private int marker = 0;
 	private boolean shown;
-   
 	
 	public boolean isShown() {
 		return shown;
@@ -27,5 +26,4 @@ public class Tile {
 	public void incAdjBombs() {
 		return;
 	}
-	
 }
