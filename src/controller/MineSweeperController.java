@@ -161,7 +161,6 @@ public class MineSweeperController {
 						tempTile = game.getTile(tempX, tempY);
 						if(!(tempTile==null) && !(tempTile.getMarker()==1)) {
 							unmarkedTile(tempX, tempY, false);
-							btnArray[x][y].setGraphic(null);
 						}
 					}
 				}
@@ -174,6 +173,7 @@ public class MineSweeperController {
 			zeroSolver(x,y);
 			return;
 		}
+		
 		Tile currTile = game.getTile(x, y);
 		Button currBtn = btnArray[x][y];
 		revealTile(currTile, currBtn);
@@ -196,6 +196,7 @@ public class MineSweeperController {
 			game.showTile(currTile);
 			btn.getStyleClass().add("bombs-" + currTile.getAdjBombs());
 			btn.getStyleClass().add("shown");
+			btn.setGraphic(null);
 			if (currTile.getAdjBombs() != 0) {
 				btn.setText("" + currTile.getAdjBombs());	
 			}
