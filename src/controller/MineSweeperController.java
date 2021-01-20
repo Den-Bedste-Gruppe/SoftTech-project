@@ -161,6 +161,7 @@ public class MineSweeperController {
 						tempTile = game.getTile(tempX, tempY);
 						if(!(tempTile==null) && !(tempTile.getMarker()==1)) {
 							unmarkedTile(tempX, tempY, false);
+							btnArray[x][y].setGraphic(null);
 						}
 					}
 				}
