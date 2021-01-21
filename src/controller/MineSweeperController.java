@@ -82,7 +82,6 @@ public class MineSweeperController {
 					@Override
 					public void run() {
 						currTime++;
-						System.out.println(currTime);
 						timerLabel.setText("Time: " + currTime);
 					}
 				});
