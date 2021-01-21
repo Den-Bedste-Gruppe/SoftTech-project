@@ -50,7 +50,7 @@ public class MenuController {
 		MineSweeperController.setTheme(selectedTheme);
 		Scene game = FXMLLoader.load(Main.class.getResource("../views/standardGame.fxml"));
 
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 		stage.setHeight(600);
@@ -63,7 +63,7 @@ public class MenuController {
 		MineSweeperController.setTheme(selectedTheme);
 		Scene game = FXMLLoader.load(Main.class.getResource("../views/standardGame.fxml"));
 
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 
@@ -78,7 +78,7 @@ public class MenuController {
 		MineSweeperController.setTheme(selectedTheme);
 		Scene game = FXMLLoader.load(Main.class.getResource("../views/standardGame.fxml"));
 
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 
@@ -91,7 +91,7 @@ public class MenuController {
 	public void setCustomGame(ActionEvent event) throws IOException {
 		Scene game = FXMLLoader.load(Main.class.getResource("../views/customGame.fxml"));
 
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 
 		stage.setHeight(600);
