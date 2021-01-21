@@ -6,9 +6,6 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.swing.SwingUtilities;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -300,7 +297,7 @@ public class MineSweeperController {
 	}
 
 	public void newGame (ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
 		
 		Stage stage = (Stage) board.getScene().getWindow();
 
