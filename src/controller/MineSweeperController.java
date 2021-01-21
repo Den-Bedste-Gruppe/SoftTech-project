@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.swing.SwingUtilities;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,6 +42,10 @@ public class MineSweeperController {
 	@FXML
 	private URL location;
 
+	@FXML
+	private Label timerLabel;
+	
+	private Timer timer;
 	private static String selectedTheme;
 	private static MineSweeperGame game;
 	private Button[][] btnArray;
@@ -46,7 +55,7 @@ public class MineSweeperController {
 
 	public void initialize() {
 		bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
-
+		timerLabel.setText("Time: " + 0);
 		btnArray = new Button[game.getHeight()][game.getWidth()];
 		for (int x = 0; x < game.getHeight(); x++) {
 			for (int y = 0; y < game.getWidth(); y++) {
@@ -61,6 +70,23 @@ public class MineSweeperController {
 		}
 	}
 	
+	public void startTimer() {
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			int currTime = 0;
+			@Override
+			public void run() {
+				javafx.application.Platform.runLater(new Runnable () {
+					@Override
+					public void run() {
+						currTime++;
+						System.out.println(currTime);
+						timerLabel.setText("Time: " + currTime);
+					}
+				});
+			}
+		}, 1000, 1000);
+	}
 
 	public void TileClicked(MouseEvent e) {
 		Button button;
@@ -79,6 +105,7 @@ public class MineSweeperController {
 		if(game.getRounds() == 0) {
 			game.placeBombs(x, y);
 			System.out.println(game);
+			startTimer();
 		}
 
 		
@@ -177,11 +204,13 @@ public class MineSweeperController {
 		Button currBtn = btnArray[x][y];
 		revealTile(currTile, currBtn);
 		if(currTile instanceof BombTile) {
+			timer.cancel();
 			gameOver(currBtn);
 			return;
 		}
 
 		if(game.isWon()) {
+			timer.cancel();
 			System.out.println("You won!");
 			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
