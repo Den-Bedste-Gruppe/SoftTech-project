@@ -6,7 +6,6 @@ public class MineSweeperGame {
 	private boolean done, won;
 	private Tile[][] board;
 	private int height, width, flagCounter, numOfBombs, rounds, fieldsToWin;
-	private Random rand = new Random();
 	private ArrayList<int[]> canPlaceBombs = new ArrayList<int[]>();
 	
 	public MineSweeperGame(int height, int width, int numOfBombs) {
