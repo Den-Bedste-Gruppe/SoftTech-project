@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import main.Main;
 import model.BombTile;
 import model.MineSweeperGame;
-import model.SafeTile;
 import model.Tile;
 
 public class MineSweeperController {
