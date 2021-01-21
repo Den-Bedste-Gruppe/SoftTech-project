@@ -299,6 +299,7 @@ public class MineSweeperController {
 	}
 
 	public void newGame (ActionEvent event) throws IOException {
+		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
 		
 		Stage stage = (Stage)gameScene.getWindow();

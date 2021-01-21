@@ -28,7 +28,7 @@ public class CustomGameController {
 	private Scene customScene;
 
 	private int savedHeight, savedWidth, savedBombs;
-	private String selectedTheme = "classic";
+	private static String selectedTheme;
 	
 	public void initialize() {
 		
@@ -90,8 +90,9 @@ public class CustomGameController {
 	}
 
 	public void menu(ActionEvent event) throws IOException {
+		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
-
+		
 		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(tableViewScene);
 		stage.setHeight(600);
@@ -104,5 +105,8 @@ public class CustomGameController {
 		System.out.println("Closed!");
 		Stage stage = (Stage) customScene.getWindow();
 		stage.close();
+	}
+	public static void setTheme(String theme) {
+		selectedTheme = theme;
 	}
 }

@@ -89,8 +89,9 @@ public class MenuController {
 	}
 
 	public void setCustomGame(ActionEvent event) throws IOException {
+		CustomGameController.setTheme(selectedTheme);
 		Scene game = FXMLLoader.load(Main.class.getResource("/views/customGame.fxml"));
-
+		
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 
@@ -106,5 +107,7 @@ public class MenuController {
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.close();
 	}
-
+	public static void setTheme(String theme) {
+		selectedTheme = theme;
+	}
 }
