@@ -7,7 +7,7 @@ public class MineSweeperGame {
 	private Tile[][] board;
 	private int height, width, flagCounter, numOfBombs, rounds, fieldsToWin;
 	private Random rand = new Random();
-	private ArrayList<int[]> test = new ArrayList<int[]>();
+	private ArrayList<int[]> canPlaceBombs = new ArrayList<int[]>();
 	
 	public MineSweeperGame(int height, int width, int numOfBombs) {
 		this.height = height;
@@ -20,7 +20,7 @@ public class MineSweeperGame {
 		for(int x = 0; x < height; x++) {
 			for(int y = 0; y < width; y++) {
 				board[x][y] = new SafeTile();
-				test.add(new int[]{x, y});
+				canPlaceBombs.add(new int[]{x, y});
 			}
 		}
 	}
@@ -92,22 +92,22 @@ public class MineSweeperGame {
 	
 	public void placeBombs(int startX, int startY) {
 		for (int i = 0; i < numOfBombs; i++) {
-			int ranIndex = new Random().nextInt(test.size());
+			int ranIndex = new Random().nextInt(canPlaceBombs.size());
 			
-			int[] cords = test.get(ranIndex);
+			int[] cords = canPlaceBombs.get(ranIndex);
 			int x = cords[0];
 			int y = cords[1];
 			
 			if (x == startX && y == startY) {
 				i--;
-				test.remove(ranIndex);
+				canPlaceBombs.remove(ranIndex);
 				continue;
 			}
 			
 			board[x][y] = new BombTile();
 			incNeighbours(x, y);
 			
-			test.remove(ranIndex);
+			canPlaceBombs.remove(ranIndex);
 		}
 	}
 	
