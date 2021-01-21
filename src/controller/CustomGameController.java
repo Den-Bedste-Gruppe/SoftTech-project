@@ -76,7 +76,7 @@ public class CustomGameController {
 		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
 		MineSweeperController.setTheme(selectedTheme);
-		Scene game = FXMLLoader.load(Main.class.getResource("../views/standardGame.fxml"));
+		Scene game = FXMLLoader.load(Main.class.getResource("/views/standardGame.fxml"));
 	
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
@@ -90,7 +90,7 @@ public class CustomGameController {
 	}
 
 	public void menu(ActionEvent event) throws IOException {
-		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
+		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
 
 		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(tableViewScene);
