@@ -12,12 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import main.Main;
+import model.BombTile;
 import model.MineSweeperGame;
-import model.SafeTile;
 import model.Tile;
 
 public class MineSweeperController {
@@ -37,6 +38,7 @@ public class MineSweeperController {
 	@FXML
 	private URL location;
 
+	private static String selectedTheme;
 	private static MineSweeperGame game;
 	private Button[][] btnArray;
 	public static void setGame(MineSweeperGame mgame) {
@@ -98,14 +100,14 @@ public class MineSweeperController {
 			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
-				ImageView flag = new ImageView(new Image("public/images/flag.png"));
+				ImageView flag = new ImageView(new Image("public/images/"+selectedTheme+"/flag.png"));
 				flag.setFitHeight(30);
 				flag.setFitWidth(30);
 				button.setGraphic(flag);
 				break;
 			case 1:
 				game.incFlagCounter(-1);
-				ImageView qMark = new ImageView(new Image("public/images/qMark.png"));
+				ImageView qMark = new ImageView(new Image("public/images/"+selectedTheme+"/qMark.png"));
 				qMark.setFitHeight(20);
 				qMark.setFitWidth(20);
 				button.setGraphic(qMark);
@@ -175,7 +177,7 @@ public class MineSweeperController {
 		Tile currTile = game.getTile(x, y);
 		Button currBtn = btnArray[x][y];
 		revealTile(currTile, currBtn);
-		if(!(currTile instanceof SafeTile)) {
+		if(currTile instanceof BombTile) {
 			gameOver(currBtn);
 			return;
 		}
@@ -240,24 +242,25 @@ public class MineSweeperController {
 		}
 	}
 	
+	// TODO Er vi sikker på flaggedTile og questionTile skal være her
 	private void flaggedTile() {
 		return;
 	}
 	
 	private void questionTile() {
-		return ;
+		return;
 
 	}
 	
 	public void gameOver(Button button) {
-		ImageView iv = new ImageView(new Image("public/images/oldMine.png"));
-//		ImageView iv = new ImageView(new Image("images/corona.jpg"));
-//		ImageView iv = new ImageView(new Image("images/mine.png"));
+		ImageView iv = new ImageView(new Image("public/images/"+selectedTheme+"/mine.png"));
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
 		button.setGraphic(iv);
+
 		gameOver.setText("GAME OVER: Try again?");
 		gameOver.setVisible(true);
+
 		game.setDone();
 	}
 	
@@ -271,11 +274,15 @@ public class MineSweeperController {
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
 		
 		Stage stage = (Stage) board.getScene().getWindow();
+
 		stage.setScene(tableViewScene);
-		//stage.getScene().getStylesheets().add("buttonStyle.css");
 		stage.setHeight(600);
 		stage.setWidth(800);
 		stage.setMaximized(false);
 		stage.show();
+	}
+	
+	public static void setTheme(String theme) {
+		selectedTheme = theme;
 	}
 }
