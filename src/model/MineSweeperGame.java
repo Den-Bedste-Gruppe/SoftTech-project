@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -6,7 +7,6 @@ public class MineSweeperGame {
 	private boolean done, won;
 	private Tile[][] board;
 	private int height, width, flagCounter, numOfBombs, rounds, fieldsToWin;
-	private Random rand = new Random();
 	private ArrayList<int[]> test = new ArrayList<int[]>();
 	
 	public MineSweeperGame(int height, int width, int numOfBombs) {
@@ -115,8 +115,6 @@ public class MineSweeperGame {
 		flagCounter += upOrNot;
 	}
 	
-	//for testing
-	/*
 	public String toString() {
 		String s = "";
 		for(int y = 0; y < width; y++) {
@@ -132,5 +130,4 @@ public class MineSweeperGame {
 		}
 		return s;
 	}
-	*/
 }

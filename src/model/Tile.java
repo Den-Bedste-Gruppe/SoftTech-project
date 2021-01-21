@@ -1,5 +1,6 @@
 package model;
-public class Tile {
+
+public abstract class Tile {
 	private int marker = 0;
 	private boolean shown;
 	
@@ -12,7 +13,7 @@ public class Tile {
 	}
 	
 	public void incMarker() {
-		marker=(marker + 1) % 3;
+		marker = (marker + 1) % 3;
 	}
 	
 	public void setShown() {
