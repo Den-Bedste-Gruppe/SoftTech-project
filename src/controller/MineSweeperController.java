@@ -29,6 +29,8 @@ import model.Tile;
 public class MineSweeperController {
 
 	@FXML
+	private Scene gameScene;
+	@FXML
 	private GridPane board;
 	
 	@FXML
@@ -295,14 +297,14 @@ public class MineSweeperController {
 	
 	public void close() {
 		System.out.println("Closed!");
-		Stage stage = (Stage) board.getScene().getWindow();
+		Stage stage = (Stage)gameScene.getWindow();
 		stage.close();
 	}
 
 	public void newGame (ActionEvent event) throws IOException {
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
 		
-		Stage stage = (Stage) board.getScene().getWindow();
+		Stage stage = (Stage)gameScene.getWindow();
 
 		stage.setScene(tableViewScene);
 		stage.setHeight(600);
