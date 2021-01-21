@@ -16,6 +16,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import main.Main;
+import model.BombTile;
 import model.MineSweeperGame;
 import model.SafeTile;
 import model.Tile;
@@ -176,7 +177,7 @@ public class MineSweeperController {
 		Tile currTile = game.getTile(x, y);
 		Button currBtn = btnArray[x][y];
 		revealTile(currTile, currBtn);
-		if(!(currTile instanceof SafeTile)) {
+		if(currTile instanceof BombTile) {
 			gameOver(currBtn);
 			return;
 		}
