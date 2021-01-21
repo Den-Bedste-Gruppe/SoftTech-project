@@ -46,6 +46,11 @@
                         <Insets right="20.0" />
                      </padding>
                   </Label>
+                  <Label fx:id="timerLabel" text="Time: 0">
+                     <padding>
+                        <Insets right="20.0" />
+                     </padding>
+                  </Label>
                   <Label fx:id="gameOver" text="Game Over" textAlignment="JUSTIFY" visible="false" wrapText="true">
                      <font>
                         <Font size="25.0" />
