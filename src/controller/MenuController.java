@@ -19,9 +19,9 @@ public class MenuController {
 	private Scene menuScene;
 
 	@FXML
-	private RadioButton classic, corona;
+	private RadioButton classic, corona, minecraft;
 
-	private static String selectedTheme = "corona";
+	private static String selectedTheme = "classic";
 
 	public void initialize() {
 		switch (selectedTheme) {
@@ -32,7 +32,10 @@ public class MenuController {
 		case "corona": 
 			corona.setSelected(true);
 			break;
-		
+			
+		case "minecraft":
+			minecraft.setSelected(true);
+			break;
 		}
 		
 	}

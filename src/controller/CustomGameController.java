@@ -22,7 +22,7 @@ public class CustomGameController {
 	private Label bombLabel, sizeLabel;
 	
 	@FXML
-	private RadioButton classic, corona;
+	private RadioButton classic, corona, minecraft;
 	
 	@FXML
 	private Scene customScene;
@@ -40,6 +40,9 @@ public class CustomGameController {
 			corona.setSelected(true);
 			break;
 		
+		case "minecraft":
+			minecraft.setSelected(true);
+			break;
 		}
 		
 	}
