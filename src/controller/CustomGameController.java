@@ -31,6 +31,7 @@ public class CustomGameController {
 	private String selectedTheme = "classic";
 	
 	public void initialize() {
+		
 		switch (selectedTheme) {
 		case "classic": 
 			classic.setSelected(true);
@@ -79,7 +80,7 @@ public class CustomGameController {
 	
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
-		stage.getScene().getStylesheets().add("public/css/buttonStyle.css");
+		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 
 		stage.setHeight(600);
 		stage.setWidth(800);
@@ -95,7 +96,7 @@ public class CustomGameController {
 		stage.setScene(tableViewScene);
 		stage.setHeight(600);
 		stage.setWidth(800);
-		// stage.getScene().getStylesheets().add("public/css/buttonStyle.css.css");
+		
 		stage.show();
 	}
 

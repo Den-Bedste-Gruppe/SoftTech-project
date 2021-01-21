@@ -254,8 +254,6 @@ public class MineSweeperController {
 	
 	public void gameOver(Button button) {
 		ImageView iv = new ImageView(new Image("public/images/"+selectedTheme+"/mine.png"));
-//		ImageView iv = new ImageView(new Image("images/corona.jpg"));
-//		ImageView iv = new ImageView(new Image("images/mine.png"));
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
 		button.setGraphic(iv);
@@ -275,7 +273,7 @@ public class MineSweeperController {
 		
 		Stage stage = (Stage) board.getScene().getWindow();
 		stage.setScene(tableViewScene);
-		//stage.getScene().getStylesheets().add("buttonStyle.css");
+		//stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 		stage.setHeight(600);
 		stage.setWidth(800);
 		stage.setMaximized(false);

@@ -1,0 +1,44 @@
+.button {
+  -fx-background-color: gray;
+  -fx-border-radius: 0px;
+  -fx-border-size: 0px;
+  -fx-border-color: gray;
+  -fx-background-radius: 0px;
+  -fx-background-insets: 1px;
+}
+
+.shown {
+  -fx-background-color: white;
+}
+
+.bombs-1 {
+  -fx-text-fill: blue;
+}
+
+.bombs-2 {
+  -fx-text-fill: green;
+}
+
+.bombs-3 {
+  -fx-text-fill: red;
+}
+
+.bombs-4 {
+  -fx-text-fill: purple;
+}
+
+.bombs-5 {
+  -fx-text-fill: maroon;
+}
+
+.bombs-6 {
+  -fx-text-fill: turquoise;
+}
+
+.bombs-7 {
+  -fx-text-fill: black;
+}
+
+.bombs-8 {
+  -fx-text-fill: grey;
+}

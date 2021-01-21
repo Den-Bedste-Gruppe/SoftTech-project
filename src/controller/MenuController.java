@@ -1,13 +1,11 @@
 package controller;
 
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import main.Main;
 import model.MineSweeperGame;
@@ -54,7 +52,7 @@ public class MenuController {
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
-		stage.getScene().getStylesheets().add("public/css/buttonStyle.css");
+		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 		stage.setHeight(600);
 		stage.setWidth(800);
 		stage.show();
@@ -67,7 +65,7 @@ public class MenuController {
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
-		stage.getScene().getStylesheets().add("public/css/buttonStyle.css");
+		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 
 		stage.setHeight(600);
 		stage.setWidth(800);
@@ -82,7 +80,7 @@ public class MenuController {
 
 		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(game);
-		stage.getScene().getStylesheets().add("public/css/buttonStyle.css");
+		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 
 		stage.setHeight(600);
 		stage.setWidth(800);
