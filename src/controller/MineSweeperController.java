@@ -57,6 +57,7 @@ public class MineSweeperController {
 	public void initialize() {
 		bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
 		timerLabel.setText("Time: " + 0);
+		board.getStyleClass().add("grid");
 		btnArray = new Button[game.getHeight()][game.getWidth()];
 		for (int x = 0; x < game.getHeight(); x++) {
 			for (int y = 0; y < game.getWidth(); y++) {

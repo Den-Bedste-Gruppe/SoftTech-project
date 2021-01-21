@@ -7,8 +7,13 @@
   -fx-background-insets: 1px;
 }
 
+.button:hover {
+  -fx-background-color: #80982A;
+}
+
+
 .shown {
-  -fx-background-color: white;
+  -fx-background-color: silver;
 }
 
 .bombs-1 {
