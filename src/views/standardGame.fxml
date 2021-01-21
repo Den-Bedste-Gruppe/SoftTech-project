@@ -39,7 +39,7 @@
          </top>
          <bottom>
 
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER">
                <children>
                   <Label fx:id="bombLabel" text="flag">
                      <padding>

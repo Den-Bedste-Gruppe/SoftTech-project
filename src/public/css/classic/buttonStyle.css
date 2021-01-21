@@ -6,6 +6,10 @@
   -fx-background-radius: 5px;
 }
 
+.button:hover {
+ -fx-background-color: lightblue;
+}
+
 .shown {
   -fx-background-color: white;
 }

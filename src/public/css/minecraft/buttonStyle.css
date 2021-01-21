@@ -1,5 +1,5 @@
 .button {
-  -fx-background-color: gray;
+  -fx-background-color: green;
   -fx-border-radius: 0px;
   -fx-border-size: 0px;
   -fx-border-color: gray;
@@ -7,8 +7,12 @@
   -fx-background-insets: 1px;
 }
 
+.button:hover {
+  -fx-background-color: #9B7653;
+}
+
 .shown {
-  -fx-background-color: white;
+  -fx-background-color: grey;
 }
 
 .bombs-1 {
