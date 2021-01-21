@@ -4,12 +4,12 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 import main.Main;
 import model.MineSweeperGame;
-import javafx.scene.Node;
 
 public class MenuController {
 

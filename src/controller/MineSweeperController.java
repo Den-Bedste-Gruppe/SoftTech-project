@@ -12,13 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import main.Main;
 import model.MineSweeperGame;
 import model.SafeTile;
 import model.Tile;
-import javafx.scene.input.*;
 
 public class MineSweeperController {
 
@@ -241,12 +241,13 @@ public class MineSweeperController {
 		}
 	}
 	
+	// TODO Er vi sikker på flaggedTile og questionTile skal være her
 	private void flaggedTile() {
 		return;
 	}
 	
 	private void questionTile() {
-		return ;
+		return;
 
 	}
 	
@@ -255,8 +256,10 @@ public class MineSweeperController {
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
 		button.setGraphic(iv);
+
 		gameOver.setText("GAME OVER: Try again?");
 		gameOver.setVisible(true);
+
 		game.setDone();
 	}
 	
@@ -270,8 +273,8 @@ public class MineSweeperController {
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
 		
 		Stage stage = (Stage) board.getScene().getWindow();
+
 		stage.setScene(tableViewScene);
-		//stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 		stage.setHeight(600);
 		stage.setWidth(800);
 		stage.setMaximized(false);

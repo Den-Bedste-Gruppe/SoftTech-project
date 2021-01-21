@@ -15,9 +15,11 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		primaryStage.setTitle("MineSweeper Game");
 		Scene game = FXMLLoader.load(Main.class.getResource("../views/menu.fxml"));
+
 		primaryStage.setScene(game);
 		primaryStage.setHeight(600);
 		primaryStage.setWidth(800);
+
 		primaryStage.show();
 	}
 }

@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -114,8 +115,6 @@ public class MineSweeperGame {
 		flagCounter += upOrNot;
 	}
 	
-	//for testing
-	/*
 	public String toString() {
 		String s = "";
 		for(int y = 0; y < width; y++) {
@@ -131,5 +130,4 @@ public class MineSweeperGame {
 		}
 		return s;
 	}
-	*/
 }
