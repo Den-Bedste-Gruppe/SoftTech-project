@@ -323,6 +323,9 @@ public class MineSweeperController {
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
 		Stage stage = (Stage)gameScene.getWindow();
 		stage.setScene(tableViewScene);
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 	

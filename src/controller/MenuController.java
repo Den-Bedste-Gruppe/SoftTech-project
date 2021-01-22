@@ -61,6 +61,9 @@ public class MenuController {
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 
@@ -77,7 +80,9 @@ public class MenuController {
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
-
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 
@@ -94,6 +99,9 @@ public class MenuController {
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 	
@@ -108,6 +116,9 @@ public class MenuController {
 		
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 
