@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -53,6 +52,9 @@ public class MineSweeperController {
 		game = mgame;
 	}
 
+	/**
+	 * Initializes the board setting game labels and creating the Button grid.
+	 */
 	public void initialize() {
 		bombLabel.setText("Flag: " + game.getFlagCounter() + "/" + game.getNumOfBombs());
 		timerLabel.setText("Time: " + 0);
@@ -64,6 +66,7 @@ public class MineSweeperController {
 				btnArray[x][y] = btn;
 				btn.setMaxSize(50, 50);
 				btn.setMinSize(50, 50);
+				//Add Button to the board (GridPane)
 				board.add(btn, x, y);
 				btn.setId(x + " . " + y);
 				btn.setOnMouseClicked(e -> TileClicked(e));
@@ -71,6 +74,9 @@ public class MineSweeperController {
 		}
 	}
 	
+	/**
+	 * Starts the timer that shows how long you have currently spent on the game
+	 */
 	public void startTimer() {
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
@@ -88,13 +94,18 @@ public class MineSweeperController {
 		}, 1000, 1000);
 	}
 
+	/**
+	 * Handles the game logic when the users clicks on a tile
+	 * @param e. Triggered when any button on the board is clicked
+	 */
+	
 	public void TileClicked(MouseEvent e) {
 		Button button;
 		if(game.isDone()) {
 			return;
 		}
 		button = ((Button)e.getSource());
-		//getting cordinates from button clicked, and tile model from that location
+		//getting coordinates from button clicked, and tile model from that location
 		String[] coordString = new String[2];
 		coordString = button.getId().split(" . ");
 		int x = Integer.parseInt(coordString[0]);
@@ -107,9 +118,6 @@ public class MineSweeperController {
 			System.out.println(game);
 			startTimer();
 		}
-
-		
-
 		
 		game.incRounds();
 		
@@ -120,10 +128,9 @@ public class MineSweeperController {
 		}
 		
 		int tileMarker = currTile.getMarker();
-		//for changing markers
+		//for changing markers between blank, flag, and question mark
 		if(e.getButton() == MouseButton.SECONDARY) {
 			switch(tileMarker) {
-			//flagene vil altid være de sidste childnotes i panen, så man kan bare modificere sidste element i .getChildren()
 			case 0:
 				game.incFlagCounter(1);
 				ImageView flag = new ImageView(new Image("public/images/"+selectedTheme+"/flag.png"));
@@ -147,20 +154,17 @@ public class MineSweeperController {
 			return;
 		}
 		
-		//Different actions depending on if there is flag or questionmark
-		switch(tileMarker) {
-		case 0:
-			unmarkedTile(x,y,false);
-			return;
-		case 1:
-			flaggedTile();
-			return;
-		case 2:
-			questionTile();
-			return;
+		//Calls unmarkedTile if the tile does not have a flag or question mark
+		if (tileMarker == 0) {
+			unmarkedTile(x, y, false);
 		}
 	}
 	
+	/**
+	 * Used for already revealed tiles. If the number of adjacent bombs is equal to number of adjacent flags ALL adjacent tiles are revealed
+	 * @param x. Vertical coordinate of the tile the method executes on
+	 * @param y. Horizontal coordinate of the tile the method executes on
+	 */
 	private void flagSolver(int x, int y) {
 		int flagsNear = 0;
 		int tempX, tempY;
@@ -169,9 +173,9 @@ public class MineSweeperController {
 			tempY = y + i;
 			for(int j = -1; j <= 1; j++) {
 				tempX = x + j;
-				if(!(tempX==x && tempY==y)) {
+				if(!(tempX == x && tempY == y)) {
 					tempTile = game.getTile(tempX, tempY);
-					if(!(tempTile==null) && tempTile.getMarker()==1) {
+					if(!(tempTile == null) && tempTile.getMarker() == 1) {
 						flagsNear++;
 					}
 				}
@@ -183,9 +187,9 @@ public class MineSweeperController {
 				tempY = y + i;
 				for(int j = -1; j <= 1; j++) {
 					tempX = x + j;
-					if(!(tempX==x && tempY==y)) {
+					if(!(tempX == x && tempY == y)) {
 						tempTile = game.getTile(tempX, tempY);
-						if(!(tempTile==null) && !(tempTile.getMarker()==1)) {
+						if(!(tempTile == null) && !(tempTile.getMarker() == 1)) {
 							unmarkedTile(tempX, tempY, false);
 						}
 					}
@@ -194,6 +198,12 @@ public class MineSweeperController {
 		}
 	}
 	
+	/**
+	 * Handles the logic when trying to reveal an tile not yet shown.
+	 * @param x. Vertical coordinate of the tile the method executes on
+	 * @param y. Horizontal coordinate of the tile the method executes on
+	 * @param solving. Boolean telling whether or not the ZeroSolver algorithm is running.
+	 */
 	private void unmarkedTile(int x, int y, boolean solving) {
 		if(!solving) {
 			zeroSolver(x,y);
@@ -215,10 +225,13 @@ public class MineSweeperController {
 			gameOver.setText("Congratulations - you won! Want to try again?");
 			gameOver.setVisible(true);
 		}
-		
-
 	}
 	
+	/**
+	 * Visually reveals the tile by styling corresponding button in the grid
+	 * @param currTile. Current tile selected
+	 * @param btn. Button from the view for the model's corresponding tile
+	 */
 	private void revealTile(Tile currTile, Button btn) {
 		if (currTile != null && btn != null) {
 			game.showTile(currTile);
@@ -231,6 +244,11 @@ public class MineSweeperController {
 		}
 	}
 	
+	/**
+	 * Algorithm for revealing all adjacent tiles whenever a blank tile is revealed
+	 * @param x. Vertical coordinate of the tile the method executes on
+	 * @param y. Horizontal coordinate of the tile the method executes on
+	 */
 	private void zeroSolver(int x, int y) {
 		// Create stack
 		Stack<int[]> stack = new Stack<>();
@@ -270,16 +288,10 @@ public class MineSweeperController {
 		}
 	}
 	
-	// TODO Er vi sikker på flaggedTile og questionTile skal være her
-	private void flaggedTile() {
-		return;
-	}
-	
-	private void questionTile() {
-		return;
-
-	}
-	
+	/**
+	 * Called when a mine is clicked. Ends the game and styles 'button' with a mine
+	 * @param button. The Button clicked that contains a mine
+	 */
 	public void gameOver(Button button) {
 		ImageView iv = new ImageView(new Image("public/images/"+selectedTheme+"/mine.png"));
 		iv.setFitHeight(40);
@@ -292,13 +304,20 @@ public class MineSweeperController {
 		game.setDone();
 	}
 	
+	/**
+	 * Menuitem that closes the window. Triggered by "Close"-button in the "Menu"-bar
+	 */
 	public void close() {
 		System.out.println("Closed!");
 		Stage stage = (Stage)gameScene.getWindow();
 		stage.close();
 	}
 
-	public void newGame (ActionEvent event) throws IOException {
+	/**
+	 * Menuitem that returns to the main menu.
+	 * @throws IOException
+	 */
+	public void newGame () throws IOException {
 		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
 		
@@ -311,6 +330,10 @@ public class MineSweeperController {
 		stage.show();
 	}
 	
+	/**
+	 * Sets the variable selectedTheme to a given theme
+	 * @param theme. Chosen theme
+	 */
 	public static void setTheme(String theme) {
 		selectedTheme = theme;
 	}
