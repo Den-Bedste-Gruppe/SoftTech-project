@@ -77,7 +77,7 @@ public class MineSweeperController {
 	/**
 	 * Starts the timer that shows how long you have currently spent on the game
 	 */
-	public void startTimer() {
+	private void startTimer() {
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			int currTime = 0;
@@ -293,7 +293,7 @@ public class MineSweeperController {
 	 * Called when a mine is clicked. Ends the game and styles 'button' with a mine
 	 * @param button. The Button clicked that contains a mine
 	 */
-	public void gameOver(Button button) {
+	private void gameOver(Button button) {
 		ImageView iv = new ImageView(new Image("public/images/"+selectedTheme+"/mine.png"));
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
