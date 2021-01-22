@@ -11,6 +11,7 @@ import main.Main;
 import model.MineSweeperGame;
 
 public class MenuController {
+	//Hovedansvarlig for MenuControlelr er EK
 
 	@FXML
 	private Scene menuScene;
