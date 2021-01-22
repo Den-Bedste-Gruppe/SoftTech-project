@@ -115,7 +115,8 @@ public class MineSweeperController {
 		
 		if(game.getRounds() == 0) {
 			game.placeBombs(x, y);
-			System.out.println(game);
+			// For testing.
+			//System.out.println(game);
 			startTimer();
 		}
 		
@@ -320,13 +321,8 @@ public class MineSweeperController {
 	public void newGame () throws IOException {
 		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
-		
 		Stage stage = (Stage)gameScene.getWindow();
-
 		stage.setScene(tableViewScene);
-		stage.setHeight(600);
-		stage.setWidth(800);
-		stage.setMaximized(false);
 		stage.show();
 	}
 	

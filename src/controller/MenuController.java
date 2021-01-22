@@ -61,8 +61,8 @@ public class MenuController {
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
-		stage.setHeight(600);
-		stage.setWidth(800);
+//		stage.setHeight(600);
+//		stage.setWidth(800);
 		stage.show();
 	}
 
@@ -80,9 +80,6 @@ public class MenuController {
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
 
-		stage.setHeight(600);
-		stage.setWidth(800);
-
 		stage.show();
 	}
 
@@ -99,10 +96,6 @@ public class MenuController {
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
-
-		stage.setHeight(600);
-		stage.setWidth(800);
-
 		stage.show();
 	}
 	
@@ -117,10 +110,6 @@ public class MenuController {
 		
 		Stage stage = (Stage) menuScene.getWindow();
 		stage.setScene(game);
-
-		stage.setHeight(600);
-		stage.setWidth(800);
-
 		stage.show();
 	}
 
