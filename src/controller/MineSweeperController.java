@@ -77,7 +77,7 @@ public class MineSweeperController {
 	/**
 	 * Starts the timer that shows how long you have currently spent on the game
 	 */
-	public void startTimer() {
+	private void startTimer() {
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			int currTime = 0;
@@ -115,7 +115,8 @@ public class MineSweeperController {
 		
 		if(game.getRounds() == 0) {
 			game.placeBombs(x, y);
-			System.out.println(game);
+			// For testing.
+			//System.out.println(game);
 			startTimer();
 		}
 		
@@ -292,7 +293,7 @@ public class MineSweeperController {
 	 * Called when a mine is clicked. Ends the game and styles 'button' with a mine
 	 * @param button. The Button clicked that contains a mine
 	 */
-	public void gameOver(Button button) {
+	private void gameOver(Button button) {
 		ImageView iv = new ImageView(new Image("public/images/"+selectedTheme+"/mine.png"));
 		iv.setFitHeight(40);
 		iv.setFitWidth(40);
@@ -320,13 +321,11 @@ public class MineSweeperController {
 	public void newGame () throws IOException {
 		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
-		
 		Stage stage = (Stage)gameScene.getWindow();
-
 		stage.setScene(tableViewScene);
-		stage.setHeight(600);
-		stage.setWidth(800);
-		stage.setMaximized(false);
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 	

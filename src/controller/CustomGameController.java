@@ -4,7 +4,6 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -59,11 +58,10 @@ public class CustomGameController {
 	}
 	
 	/**
-	 * Starts the Minesweeper game with the given size and number of bombs given in the custom game menu and switches scene
-	 * @param event. Triggered when pressing "Create Game" button
+	 * Starts the Minesweeper game with the given size and number of bombs given in the custom game menu and switches scene. Triggered when pressing "Create Game" button
 	 * @throws IOException
 	 */
-	public void createCustomGame(ActionEvent event) throws IOException {
+	public void createCustomGame() throws IOException {
 		bombLabel.setVisible(false);
 		sizeLabel.setVisible(false);
 		savedHeight = Integer.parseInt(customHeight.getText());
@@ -88,13 +86,12 @@ public class CustomGameController {
 		MineSweeperController.setTheme(selectedTheme);
 		Scene game = FXMLLoader.load(Main.class.getResource("/views/standardGame.fxml"));
 	
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(game);
 		stage.getScene().getStylesheets().add("public/css/"+selectedTheme+"/buttonStyle.css");
-
-		stage.setHeight(600);
-		stage.setWidth(800);
-
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 
@@ -105,12 +102,11 @@ public class CustomGameController {
 	public void menu() throws IOException {
 		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
-		
 		Stage stage = (Stage) customScene.getWindow();
 		stage.setScene(tableViewScene);
-		stage.setHeight(600);
-		stage.setWidth(800);
-		
+		// Views dosen't update on Linux when you don't set size, until you move the view.
+		// To fix that we need to update the view somehow. This was the solution...
+		stage.setX(stage.getX());
 		stage.show();
 	}
 
