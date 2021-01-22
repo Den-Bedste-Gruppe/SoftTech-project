@@ -13,6 +13,7 @@ import main.Main;
 import model.MineSweeperGame;
 
 public class CustomGameController {
+	//EK var hovedansvarlig for denne kode
 
 	@FXML
 	private TextField customHeight, customWidth, customBombs;

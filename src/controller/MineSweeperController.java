@@ -22,8 +22,12 @@ import model.BombTile;
 import model.MineSweeperGame;
 import model.Tile;
 
-public class MineSweeperController {
 
+public class MineSweeperController {
+	//Hovedansvarlige for MineSweeperController er MH, PH og LM
+	/*Mange metoder er opdaterede over flere iterationer, med tilføjelser for at understøtte 
+	 *nye features, så der er kun få enkelte metoder, som kan tilskrives en person
+	 */
 	@FXML
 	private Scene gameScene;
 	@FXML
@@ -76,6 +80,7 @@ public class MineSweeperController {
 	
 	/**
 	 * Starts the timer that shows how long you have currently spent on the game
+	 * @author Philip Hviid
 	 */
 	private void startTimer() {
 		timer = new Timer();
@@ -165,6 +170,7 @@ public class MineSweeperController {
 	 * Used for already revealed tiles. If the number of adjacent bombs is equal to number of adjacent flags ALL adjacent tiles are revealed
 	 * @param x. Vertical coordinate of the tile the method executes on
 	 * @param y. Horizontal coordinate of the tile the method executes on
+	 * @author Philip Hviid
 	 */
 	private void flagSolver(int x, int y) {
 		int flagsNear = 0;
@@ -249,6 +255,7 @@ public class MineSweeperController {
 	 * Algorithm for revealing all adjacent tiles whenever a blank tile is revealed
 	 * @param x. Vertical coordinate of the tile the method executes on
 	 * @param y. Horizontal coordinate of the tile the method executes on
+	 * @author Mads Harder
 	 */
 	private void zeroSolver(int x, int y) {
 		// Create stack

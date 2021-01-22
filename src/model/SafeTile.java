@@ -1,5 +1,5 @@
 package model;
-
+//MH og PH var hovedansvarlige for denne del.
 public class SafeTile extends Tile {
 	private int adjBombs;
 	

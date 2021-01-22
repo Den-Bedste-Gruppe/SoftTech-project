@@ -1,5 +1,6 @@
 package model;
 
+//MH og PH var hovedansvarlige for denne del.
 public abstract class Tile {
 	private int marker = 0;
 	private boolean shown;
