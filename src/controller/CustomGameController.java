@@ -67,10 +67,16 @@ public class CustomGameController {
 		savedHeight = Integer.parseInt(customHeight.getText());
 		savedWidth = Integer.parseInt(customWidth.getText());
 		savedBombs = Integer.parseInt(customBombs.getText());
+		
 		if (savedBombs >= savedHeight * savedWidth) {
+			bombLabel.setText("To many bombs. Must be less than (width x height)");
 			bombLabel.setVisible(true);
 			if (savedHeight < 4 || savedWidth < 4 || savedHeight > 100 || savedWidth > 100) {
 				sizeLabel.setVisible(true);
+			}
+			if (savedBombs <0) {
+				bombLabel.setText("Amount of bombs must be a positive integer");
+				bombLabel.setVisible(true);
 			}
 			return;
 		}
@@ -78,8 +84,18 @@ public class CustomGameController {
 		if (savedHeight < 4 || savedWidth < 4 || savedHeight > 100 || savedWidth > 100) {
 			sizeLabel.setVisible(true);
 			if(savedBombs >= savedHeight * savedWidth) {
+				bombLabel.setText("To many bombs. Must be less than (width x height)");
 				bombLabel.setVisible(true);
 			}
+			if (savedBombs <0) {
+				bombLabel.setText("Amount of bombs must be a positive integer");
+				bombLabel.setVisible(true);
+			}
+			return;
+		}
+		if (savedBombs <0) {
+			bombLabel.setText("Amount of bombs must be a positive integer");
+			bombLabel.setVisible(true);
 			return;
 		}
 		MineSweeperController.setGame(new MineSweeperGame(savedWidth, savedHeight, savedBombs));
