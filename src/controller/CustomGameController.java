@@ -30,6 +30,9 @@ public class CustomGameController {
 	private int savedHeight, savedWidth, savedBombs;
 	private static String selectedTheme;
 	
+	/**
+	 * Initializes the program by setting the Radio Buttons corresponding to the current theme
+	 */
 	public void initialize() {
 		
 		switch (selectedTheme) {
@@ -44,15 +47,22 @@ public class CustomGameController {
 		case "minecraft":
 			minecraft.setSelected(true);
 			break;
-		}
-		
+		}	
 	}
-
+	
+	/**
+	 * Sets the selected theme chosen with the Radio Buttons
+	 * @param e. The event sent by the Radio Button
+	 */
 	public void themeSelecter(ActionEvent e) {
-		System.out.println(e);
 		selectedTheme = "" + ((RadioButton) e.getSource()).getId();
-
 	}
+	
+	/**
+	 * Starts the Minesweeper game with the given size and number of bombs given in the custom game menu and switches scene
+	 * @param event. Triggered when pressing "Create Game" button
+	 * @throws IOException
+	 */
 	public void createCustomGame(ActionEvent event) throws IOException {
 		bombLabel.setVisible(false);
 		sizeLabel.setVisible(false);
@@ -86,10 +96,13 @@ public class CustomGameController {
 		stage.setWidth(800);
 
 		stage.show();
-
 	}
 
-	public void menu(ActionEvent event) throws IOException {
+	/**
+	 * Menuitem that allows the user to return to the main menu scene. Triggered by "Menu"-button in the "Menu"-bar
+	 * @throws IOException
+	 */
+	public void menu() throws IOException {
 		MenuController.setTheme(selectedTheme);
 		Scene tableViewScene = FXMLLoader.load(Main.class.getResource("/views/menu.fxml"));
 		
@@ -101,11 +114,19 @@ public class CustomGameController {
 		stage.show();
 	}
 
+	/**
+	 * Menuitem that closes the window. Triggered by "Close"-button in the "Menu"-bar
+	 */
 	public void close() {
 		System.out.println("Closed!");
 		Stage stage = (Stage) customScene.getWindow();
 		stage.close();
 	}
+	
+	/**
+	 * Sets the variable selectedTheme to a given theme
+	 * @param theme. Chosen theme
+	 */
 	public static void setTheme(String theme) {
 		selectedTheme = theme;
 	}

@@ -1,5 +1,3 @@
 package model;
 
-public class BombTile extends Tile {
-
-}
+public class BombTile extends Tile {}
